@@ -1,0 +1,143 @@
+.temperature {
+    font-size: 7vh;
+}
+
+.city {
+    font-size: 5vh;
+}
+.description {
+    font-size: 5vh;
+}
+
+.icon {
+    margin-bottom: 1vh;
+    width: 8vw;
+    height: 8vw;
+}
+
+.carousel-item {
+    transition: -webkit-transform .6s ease;
+    transition: transform .6s ease;
+    transition: transform .6s ease, -webkit-transform .6s ease;
+}
+
+.row {
+    height: 80vh;
+    width: 70vw;
+}
+
+.col-12 {
+    height: 0;
+}
+
+.weather {
+    overflow: hidden;
+
+    height: 40vh;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 2px solid rgba(0, 0, 0, 0.33);
+}
+
+.news {
+    height: 10vh;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 2px solid rgba(0, 0, 0, 0.33);
+}
+
+.maps {
+
+    overflow: hidden;
+    max-height: 385px;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 2px solid rgba(0, 0, 0, 0.33);
+}
+
+.planning {
+    overflow: hidden;
+    max-height: 385px;
+    background: rgb(17 16 38);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 2px solid rgba(0, 0, 0, 0.33);
+}
+
+iframe {
+    height: 115%;
+    width: 100%;
+
+}
+.messagedefilant {
+    display: block;
+
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    width: 100vw;
+    height: 60px;
+}
+
+.messagedefilant div {
+    position: absolute;
+    min-width: 50vw;
+    /* au minimum la largeur du conteneur */
+}
+
+.messagedefilant div span,
+.messagedefilant div:after {
+    display: inline-block;
+    font-size: 2rem;
+    white-space: nowrap;
+}
+
+.messagedefilant div span {
+    animation: defilement 12s infinite linear;
+    background: transparent;
+}
+
+.messagedefilant div:after {
+    content: attr(data-text);
+    animation: defilement2 12s infinite linear;
+    background: transparent;
+}
+
+@keyframes defilement {
+    0% {
+        margin-left: 0vw;
+    }
+
+    100% {
+        margin-left: -200%;
+    }
+}
+
+@keyframes defilement2 {
+    0% {
+        margin-left: 200%;
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}
+
+.top-content .carousel-item {
+    height: 100vh;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

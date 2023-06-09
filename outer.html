@@ -1,0 +1,224 @@
+<html lang="fr"><head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="300">
+    <!-- <meta http-equiv="refresh" content="2"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script/widgets.js"></script>
+<style>
+    .temperature {
+        font-size: 7vh;
+    }
+
+    .city {
+        font-size: 5vh;
+    }
+
+    .icon {
+        margin-bottom: 1vh;
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .carousel-item {
+        transition: -webkit-transform .6s ease;
+        transition: transform .6s ease;
+        transition: transform .6s ease, -webkit-transform .6s ease;
+    }
+
+    .row {
+        height: 90vh;
+        width: 70vw;
+    }
+
+    .weather {
+        overflow: hidden;
+
+        height: 35vh;
+        background: rgba(0, 0, 0, 0);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(2.8px);
+        -webkit-backdrop-filter: blur(4.8px);
+        border: 2px solid rgba(0, 0, 0, 0.33);
+    }
+
+    .news {
+        height: 10vh;
+        margin-top: 20%;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(2.8px);
+        -webkit-backdrop-filter: blur(4.8px);
+        border: 2px solid rgba(0, 0, 0, 0.33);
+    }
+    .maps {
+        
+        overflow: hidden;
+        max-height: 385px;
+        background: rgba(0, 0, 0, 0);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(2.8px);
+        -webkit-backdrop-filter: blur(4.8px);
+        border: 2px solid rgba(0, 0, 0, 0.33);
+    }
+
+    iframe {
+        height: 115%;
+        width: 100%;
+
+    }
+
+    /*
+    .hamburger {
+        display: flex;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10vw;
+    }
+
+    .custom-box {
+
+        overflow: hidden;
+        margin-bottom: 10vh;
+        height: 50vh;
+        width: 20vw;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(2.8px);
+        -webkit-backdrop-filter: blur(4.8px);
+        border: 1px solid rgba(0, 0, 0, 0.33);
+    }
+
+    .custom-box-news {
+        overflow: hidden;
+        margin-bottom: 10vh;
+        height: 50vh;
+        width: 50vw;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(2.8px);
+        -webkit-backdrop-filter: blur(4.8px);
+        border: 1px solid rgba(0, 0, 0, 0.33);
+    }*/
+    .messagedefilant {
+        display: block;
+
+        padding: 0;
+        overflow: hidden;
+        position: relative;
+        width: 100vw;
+        height: 60px;
+    }
+
+    .messagedefilant div {
+        position: absolute;
+        min-width: 50vw;
+        /* au minimum la largeur du conteneur */
+    }
+
+    .messagedefilant div span,
+    .messagedefilant div:after {
+        display: inline-block;
+        font-size: 2rem;
+        white-space: nowrap;
+    }
+
+    .messagedefilant div span {
+        animation: defilement 12s infinite linear;
+        background: transparent;
+    }
+
+    .messagedefilant div:after {
+        content: attr(data-text);
+        animation: defilement2 12s infinite linear;
+        background: transparent;
+    }
+
+    @keyframes defilement {
+        0% {
+            margin-left: 0vw;
+        }
+
+        100% {
+            margin-left: -200%;
+        }
+    }
+
+    @keyframes defilement2 {
+        0% {
+            margin-left: 200%;
+        }
+
+        100% {
+            margin-left: 0;
+        }
+    }
+
+    .top-content .carousel-item {
+        height: 100vh;
+        min-height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    
+        .top-content .carousel-item-0 {
+            background-image: url('images/1686126973.jpg');
+        }
+        
+        .top-content .carousel-item-1 {
+            background-image: url('images/1686129847.jpg');
+        }
+        </style></head>
+
+
+
+<body onload="main()">
+    <!-- Top content -->
+    <div class="top-content">
+        <!-- Carousel -->
+        <div id="carousel-example" class="carousel slide" data-ride="carousel" data-mdb-animation="slide-up">
+
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example" data-slide-to="0" class="active" data-interval="120000"></li><li data-target="#carousel-example" data-slide-to="0" class="" data-interval="60000"></li>            </ol>
+
+            <div class="carousel-inner">
+                
+                   <div class="carousel-item carousel-item-0 active" data-interval="120000">
+                    <div class="carousel-caption">
+                      <div class="row"><div class="col-12"><div class="news custom-box-news"><div class="messagedefilant"><div data-text="La chanteuse brésilienne de " the="" girl="" from="" ipanema",="" astrud="" gilberto,="" est="" morte="" à="" 83="" ans="" -="" franceinfo!---"=""><span>La chanteuse brésilienne de "The Girl From Ipanema", Astrud Gilberto, est morte à 83 ans - franceinfo</span></div></div></div></div><div class="weather col-3"><div class="custom-box"><img class="icon" src="https://openweathermap.org/img/w/02d.png"><p class="city">Toulouse</p><p class="temperature">28°</p></div></div><div class="maps col-8 offset-1 p-0"><iframe src="https://embed.waze.com/fr/iframe?zoom=11&amp;lat=43.60154&amp;lon=1.44084"></iframe></div></div><h1></h1>
+                            </div></div>
+                    <div class="carousel-item carousel-item-1" data-interval="60000">
+                    <div class="carousel-caption">
+                    <div class="row"><div class="weather div-odd col-3"><div class="custom-box"><img class="icon" src="https://openweathermap.org/img/w/02d.png"><p class="city">Toulouse</p><p class="temperature">28°</p></div></div><div class="maps div-even col-8 offset-1 p-0"><iframe src="https://embed.waze.com/fr/iframe?zoom=11&amp;lat=43.60154&amp;lon=1.44084"></iframe></div> </div>
+
+                    </div>
+                </div>            </div>
+
+            <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <!-- End carousel -->
+    </div>
+
+
+</body></html>
