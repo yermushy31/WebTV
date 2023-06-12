@@ -1,3 +1,5 @@
+/*
+
 class Widgets {
     #ApiKey;
     #info;
@@ -68,4 +70,4 @@ async function main() {
         weatherIcons[index].src = "https://openweathermap.org/img/w/" + weather.weather[0].icon + ".png";
     });
 }
-
+*/

@@ -126,17 +126,20 @@ $weather = $requestservice->WeatherApiRequest();
                         $is_active = $i == 0 ? "active" : "";
 
                         echo "<div class='carousel-item carousel-item-$i $is_active' data-interval='" . $value->temps * $x . "'>";
-
-                        echo "<div class='carousel-caption'>
-                <div $style class='row'>";
-
+                ?>
+                <div class='carousel-caption'>
+                <?php
+                echo "<div $style class='row'>";
+              
                         if ($value->news == 1) {
-                            echo "<div class='col-12'>
-                                <div class='news custom-box-news'>";
+                            $style = $value->weather == 1 && $value->planning == 1 ? "style='margin-top: -42px; margin-left: -2vw; '" : "";
+                            echo "<div class='col-11'>
+                            
+                                <div class='news custom-box-news' $style>";
                                 $MAX = count($News->articles);
                                 $index = rand(0, $MAX);
-                                if($News->articles != null) {
-                            echo" <div class='messagedefilant'><div data-text='" . $News->articles[$index]->title. "'><span>" . $News->articles[$index]->title. "</span></div></div>";
+                                if(isset($News->articles[$index]) && $News->articles[$index]->title != null) {
+                            echo '<div class="messagedefilant"><div data-text="' . $News->articles[$index]->title. '"><span>' . $News->articles[$index]->title. '</span></div></div>';
                                 }
                             echo "
                                 </div>
@@ -144,7 +147,7 @@ $weather = $requestservice->WeatherApiRequest();
                         }
                         if ($value->weather == 1) {
 
-                            $style = $value->news == 1 ? "style='margin-top: 0px; height: 50vh;'" : "style='margin-top: 10px; height: 60vh;'";
+                            $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 70vh;'";
                             echo "
                                 <div class='weather col-3' $style>
                                 <div class='custom-box'>
@@ -168,17 +171,12 @@ $weather = $requestservice->WeatherApiRequest();
                                 <div class='planning $class offset-1 p-0' $style>
                                 ";
                             foreach ($DigiFormat as $key => $value) {
-                                if ($value != null) {
+                                if (!empty($value)) {
                                     $name = $value['name'] ?? "";
                                     $startdate = $value['startDate'] ?? "";
                                     $enddate = $value['endDate'] ?? "";
 
-                                    echo "<h2 style='text-align: left; font-size: 14px; margin: 5px;'> $name  <strong style='color: #c2a8a8;'> Du $startdate Au $enddate </strong> </h2>
-                                    <ul style='margin: 0px;'>
-                                    <li>
-                                    <p style='text-align:left; font-size: 10px; margin: 3px;' > Du $startdate Au $enddate </p>
-                                </li>
-                                </ul>    ";
+                                    echo "<h2 style='text-align: left; font-size: 13px; margin: 5px;'> $name  <strong style='font-size: 11px;color: #c2a8a8;'> Du $startdate Au $enddate </strong> </h2>";
                                 }
                             }
                             echo '
