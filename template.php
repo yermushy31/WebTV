@@ -196,5 +196,4 @@ $weather = $requestservice->WeatherApiRequest();
         <!-- End carousel -->
     </div>
 </body>
-
 </html>
