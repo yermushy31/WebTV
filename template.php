@@ -164,22 +164,37 @@ $weather = $requestservice->WeatherApiRequest();
                                     </iframe>
                                     </div>';
                         }
+                        if($value->customHtml == 1) {
+
+                        }
                         if ($value->planning == 1 && $value->map == 0) {
-                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='margin-left: -81px;'" : "";
+                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='margin-left: -84px; max-height: 420px; margin-top: -30px;'" : "";
                             $class = $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "col-11" : "col-8";
+                            $wrapperStyle = $value->news == 1 && $value->map == 0 && $value->weather == 1 ? "style='text-align: left;margin: 2px auto;padding: 0.5rem 0.5rem 0.5rem 1em;columns: 12rem;column-gap: 0rem;'" : "";
                             echo "
                                 <div class='planning $class offset-1 p-0' $style>
+                                <div class='wrapper' $wrapperStyle >
+                                <ol class='olist'>
                                 ";
                             foreach ($DigiFormat as $key => $value) {
                                 if (!empty($value)) {
                                     $name = $value['name'] ?? "";
+                                    $instructeur = "";
+                                    foreach($value['trainingSessionInstructors'] as $another) {
+                                       $firstname = $another['instructor']['firstname'];
+                                       $lastname  = $another['instructor']['lastname'];
+                                       $instructeur = $firstname . " " . $lastname;
+
+                                    }
                                     $startdate = $value['startDate'] ?? "";
                                     $enddate = $value['endDate'] ?? "";
-
-                                    echo "<h2 style='text-align: left; font-size: 13px; margin: 5px;'> $name  <strong style='font-size: 11px;color: #c2a8a8;'> Du $startdate Au $enddate </strong> </h2>";
+                                    if(!empty($instructeur)) 
+                                        echo "<ul><span>$name</span><span>$instructeur</span></ul>";
                                 }
                             }
                             echo '
+                                </ol>
+                                </div>
                                 </div>
                                 ';
                         }
@@ -192,6 +207,14 @@ $weather = $requestservice->WeatherApiRequest();
                 }
                 ?>
             </div>
+            <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
         <!-- End carousel -->
     </div>

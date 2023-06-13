@@ -15,7 +15,7 @@ $dbmodel = new DbModel();
 $dbmodel->dsn = "mysql:host=localhost;dbname=webtv";
 $dbmodel->user = "root";
 $dbmodel->passwd = "";
-$dbmodel->options =  array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
+$dbmodel->options = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
 $dbservice = new DbService($dbmodel);
 $service = new PageService($dbservice);
 $pages = $service->Lister();
@@ -48,6 +48,7 @@ if (isset($_POST['_pageId'])) {
         $pageCourante->news = isset($_POST['_pageNews']);
         $pageCourante->map = isset($_POST['_pageMap']);
         $pageCourante->planning = isset($_POST['_pagePlanning']);
+        $pageCourante->customHtml = isset($_POST['_pageCustomHtml']);
 
         if (isset($_FILES['_pageFile']))
             $pageCourante->imageElements = $_FILES['_pageFile'];
@@ -98,26 +99,33 @@ if (isset($_POST['_pageId'])) {
         background-color: black;
 
     }
+
     label {
         font-size: 20px;
         font-weight: 700;
-       background:  linear-gradient(to left, #00CF91 20%, #3055CF 100%);
+        background: linear-gradient(to left, #00CF91 20%, #3055CF 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    input.transparent-input{
-       background-color:rgba(0,0,0,0.4) ;
-       border: none !important;
+
+    input.transparent-input {
+        background-color: rgba(0, 0, 0, 0.4);
+        border: none !important;
     }
+
     textarea.transparent-input {
-        background-color:rgba(0,0,0,0.4);
-       border: none !important;
+        background-color: rgba(0, 0, 0, 0.4);
+        border: none !important;
     }
+
     .title {
-        font-size: 80px;background: #3055CF;
+        font-size: 80px;
+        background: #3055CF;
         background: linear-gradient(to left, #3055CF 20%, #00CF91 100%);
-        -webkit-background-clip: text;-webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
+
     .form-select {
         width: 170px;
     }
@@ -125,7 +133,7 @@ if (isset($_POST['_pageId'])) {
 
 <body>
     <section class="bg-image" style="background-image: url('https://images.alphacoders.com/111/1112602.jpg');
-            height: 100vh; width: auto;
+            height: 100%; width: auto;
             background-size: cover;
             background-repeat: no-repeat;">
 
@@ -137,7 +145,8 @@ if (isset($_POST['_pageId'])) {
         <div class="container-lg">
             <div class="custom-box">
                 <form method="post" id="form_pages">
-                    <select name="_pageId" class="form-select" onchange="document.getElementById('form_pages').submit()">
+                    <select name="_pageId" class="form-select"
+                        onchange="document.getElementById('form_pages').submit()">
 
                         <option class="add-page" value='-1'>Ajouter une page</option>
                         <?php foreach ($pages as $p) { ?>
@@ -155,47 +164,69 @@ if (isset($_POST['_pageId'])) {
                         <input name="_pageId" type="hidden" value="<?php echo ($pageCourante?->id); ?>" />
                         <div>
                             <label>Nom de la page</label>
-                            <input name="_pageNom" class="form-control transparent-input" value="<?php echo ($pageCourante?->nom); ?>" />
+                            <input name="_pageNom" class="form-control transparent-input"
+                                value="<?php echo ($pageCourante?->nom); ?>" />
                         </div>
                         <br>
                         <div>
                             <label>Ordre d'affichage</label>
-                            <input name="_pageOrdre" type="number" class="form-control transparent-input" value="<?php echo ($pageCourante?->ordre); ?>" />
+                            <input name="_pageOrdre" type="number" class="form-control transparent-input"
+                                value="<?php echo ($pageCourante?->ordre); ?>" />
                         </div>
                         <br>
                         <div>
                             <label>Temps d'affichage (en secondes)</label>
-                            <input name="_pageTemps" type="number" class="form-control transparent-input" value="<?php echo ($pageCourante?->temps); ?>" />
+                            <input name="_pageTemps" type="number" class="form-control transparent-input"
+                                value="<?php echo ($pageCourante?->temps); ?>" />
                         </div>
                         <br>
                         <div>
                             <label>A Afficher ?</label>
-                            <input name="_pageAffiche"  type="checkbox" <?php if ($pageCourante?->estAffiche) { echo ("checked"); }?> />
+                            <input name="_pageAffiche" type="checkbox" <?php if ($pageCourante?->estAffiche) {
+                                echo ("checked");
+                            } ?> />
                         </div>
                         <br>
                         <div>
                             <label>Météo ?</label>
-                            <input name="_pageWeather"  type="checkbox" <?php if ($pageCourante?->weather) { echo ("checked"); }?> />
+                            <input name="_pageWeather" type="checkbox" <?php if ($pageCourante?->weather) {
+                                echo ("checked");
+                            } ?> />
                         </div>
                         <br>
                         <div>
                             <label>Maps ?</label>
-                            <input name="_pageMap"  type="checkbox" <?php if ($pageCourante?->map) { echo ("checked"); }?> />
+                            <input name="_pageMap" type="checkbox" <?php if ($pageCourante?->map) {
+                                echo ("checked");
+                            } ?> />
                         </div>
                         <br>
                         <div>
                             <label>News ?</label>
-                            <input name="_pageNews"  type="checkbox" <?php if ($pageCourante?->news) { echo ("checked"); }?> />
+                            <input name="_pageNews" type="checkbox" <?php if ($pageCourante?->news) {
+                                echo ("checked");
+                            } ?> />
                         </div>
                         <br>
                         <div>
                             <label>Planning ?</label>
-                            <input name="_pagePlanning"  type="checkbox" <?php if ($pageCourante?->planning) { echo ("checked"); }?> />
+                            <input name="_pagePlanning" type="checkbox" <?php if ($pageCourante?->planning) {
+                                echo ("checked");
+                            } ?> />
+                        </div>
+                        <br>
+                        <div>
+                            <label>Custom HTML ?</label>
+                            <input name="_pageCustomHtml" type="checkbox" <?php if ($pageCourante?->customHtml) {
+                                echo ("checked");
+                            } ?> />
                         </div>
                         <br>
                         <div>
                             <label>Contenue de la page</label>
-                            <textarea name="_pageHtml" class="form-control transparent-input"><?php echo ($pageCourante?->html); ?></textarea>
+                            <textarea name="_pageHtml"
+                                class="form-control transparent-input"><?php echo ($pageCourante?->html); ?>
+                            </textarea>
                         </div>
 
                         <div>
@@ -209,7 +240,8 @@ if (isset($_POST['_pageId'])) {
                             <button type='submit' name="_pageAjouter" class="btn btn-primary">Ajouter</button>
                         <?php } else { ?>
                             <button type='submit' name="_pageEnregister" class="btn btn-primary">Enregistrer</button>
-                            <button type='submit' onclick="return confirmerSuppression()" name="_pageSupprimer" class="btn btn-primary">Supprimer</button>
+                            <button type='submit' onclick="return confirmerSuppression()" name="_pageSupprimer"
+                                class="btn btn-primary">Supprimer</button>
                         <?php } ?>
 
                     </div>

@@ -16,5 +16,6 @@ class PageModel {
     public ?bool $news;
     public ?bool $map;
     public ?bool $planning;
+    public ?bool $customHtml;
 }
 

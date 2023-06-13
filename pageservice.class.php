@@ -30,6 +30,17 @@ class PageService
         fclose($handle);
         
     }
+    private function UploadFile(PageModel $page)
+    {
+        if(isset($page->imageElements))
+        $path = __DIR__."//images/".$page->nomImage;
+        if(move_uploaded_file($page->imageElements['tmp_name'], $path)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     private function check_order(PageModel $page)
     {
@@ -61,17 +72,6 @@ class PageService
         $model->options = array(':id_pages' => $page->id);
         $results = $this->dbservice->executerRequeteMiseaJour($model);
     }
-    private function UploadFile(PageModel $page)
-    {
-        if(isset($page->imageElements))
-        $path = __DIR__."//images/".$page->nomImage;
-        if(move_uploaded_file($page->imageElements['tmp_name'], $path)) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
     public function Ajouter(PageModel $page)
     {
         $model = new SqlModel();
@@ -82,7 +82,7 @@ class PageService
             $page->nomImage = time().".".$ext[1]; 
         }
         $page->nomFichier = time().".html";
-        $model->sql = "INSERT INTO pages (temps, ordre, libpages, est_affiche, libhtml, image, weather, news, map, planning) VALUES (:temps, :ordre, :libpages, :est_affiche, :libhtml, :image, :weather, :news, :map, :planning);";
+        $model->sql = "INSERT INTO pages (temps, ordre, libpages, est_affiche, libhtml, image, weather, news, map, planning, customHtml) VALUES (:temps, :ordre, :libpages, :est_affiche, :libhtml, :image, :weather, :news, :map, :planning, :customHtml);";
         $model->options = array(
             ':temps' => $page->temps,
             ':ordre' => $page->ordre,
@@ -93,7 +93,8 @@ class PageService
             ':weather' => $page->weather,
             ':news' => $page->news,
             ':map' => $page->map,
-            ':planning' => $page->planning
+            ':planning' => $page->planning,
+            ':customHtml' => $page->customHtml
         );
         $page->id = $this->dbservice->executerRequeteInsertion($model);
         $this->write_file($page->html, $page->nomFichier);
@@ -105,7 +106,7 @@ class PageService
     {
         $model = new SqlModel();
         $this->check_order($page);
-        $model->sql = "UPDATE pages SET temps=:temps, ordre=:ordre, libpages=:libpages, est_affiche=:est_affiche, image=:image, weather=:weather, news=:news, map=:map, planning=:planning WHERE id_pages=:id";
+        $model->sql = "UPDATE pages SET temps=:temps, ordre=:ordre, libpages=:libpages, est_affiche=:est_affiche, image=:image, weather=:weather, news=:news, map=:map, planning=:planning, customHtml=:customHtml WHERE id_pages=:id";
         $model->options = array(
             ':temps' => $page->temps,
             ':ordre' => $page->ordre,
@@ -116,6 +117,7 @@ class PageService
             ':news' => $page->news,
             ':map' => $page->map,
             ':planning' => $page->planning,
+            ':customHtml' => $page->customHtml,
             ':id' => $page->id
         );
         $this->dbservice->executerRequeteMiseaJour($model);
@@ -147,6 +149,7 @@ class PageService
                 $p->news = $value['news'];
                 $p->map = $value['map'];
                 $p->planning = $value['planning'];
+                $p->customHtml = $value['customHtml'];
                 $pages[] = $p;
             }
         }
