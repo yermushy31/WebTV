@@ -122,7 +122,8 @@ $weather = $requestservice->WeatherApiRequest();
                 $x = 1000;
                 foreach ($pages as $value) {
                     if ($value->estAffiche == 1) {
-                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; width: 99vw !important;'" : "";
+                        $ifcustom = $value->customHtml == 1 ? "width: 74vw":"width: 99vw";
+                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; $ifcustom !important;'" : "";
                         $is_active = $i == 0 ? "active" : "";
 
                         echo "<div class='carousel-item carousel-item-$i $is_active' data-interval='" . $value->temps * $x . "'>";
@@ -159,13 +160,15 @@ $weather = $requestservice->WeatherApiRequest();
                                 </div>";
                         }
                         if ($value->map == 1 && $value->planning == 0) {
-                            echo '<div class="maps col-8 offset-1 p-0">
+                            $class = $value->news == 0 && $value->weather == 0 ? "col-11" : "col-8";
+                            echo '<div class="maps '.$class.' offset-1 p-0">
                                 <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084">
                                     </iframe>
                                     </div>';
                         }
                         if($value->customHtml == 1) {
-
+                           $style = $value->map == 0 && $value->planning == 0 && $value->weather == 0 ? "class='customHtml col-12 offset-1 p-0''" : "class='customHtml col-8 offset-1 p-0'";
+                           echo "<div class='custom-content'><iframe src='index.html'></iframe></div>";
                         }
                         if ($value->planning == 1 && $value->map == 0) {
                             $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='margin-left: -84px; max-height: 420px; margin-top: -30px;'" : "";
@@ -207,14 +210,7 @@ $weather = $requestservice->WeatherApiRequest();
                 }
                 ?>
             </div>
-            <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+           
         </div>
         <!-- End carousel -->
     </div>

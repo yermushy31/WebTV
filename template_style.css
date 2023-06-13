@@ -55,7 +55,7 @@
 }
 
 .maps {
-
+ 
 	overflow: hidden;
 	max-height: 385px;
 	background: rgba(0, 0, 0, 0);
@@ -68,6 +68,7 @@
 
 .planning {
 	overflow: hidden;
+    
 	max-height: 420px;
 	background: rgb(255, 255, 255);
 	border-radius: 16px;
@@ -76,6 +77,17 @@
 	-webkit-backdrop-filter: blur(4.8px);
 	border: 0.3rem solid turquoise;
 
+}
+
+.cutstomHtml {
+    overflow: hidden;
+	max-height: 420px;
+	background: rgb(255, 255, 255);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(2.8px);
+	-webkit-backdrop-filter: blur(4.8px);
+	
 }
 
 .wrapper {
@@ -89,8 +101,7 @@
 }
 
 .olist {
-    display: list-item;
-    list-style-position: inside;
+    list-style-type: none;  
 	margin: 0;
 }
 
@@ -108,14 +119,14 @@
 }
 
 .olist ul span:first-child {
-	font-size: 1em;
-	font-weight: 650;
+	font-size: 1.2em;
+	font-weight: 700;
 	color: black;
 }
 
 .olist ul span:last-child {
 	font-size: 0.8em;
-	font-weight: 450;
+	font-weight: 550;
 	color: black;
 	font-style: italic;
 }
@@ -123,7 +134,11 @@
 iframe {
 	height: 115%;
 	width: 100%;
+}
 
+iframe.custom-content {
+    width: 100%;
+    height: 100%;
 }
 
 .messagedefilant {

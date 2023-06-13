@@ -25,9 +25,11 @@ class PageService
     }
     private function write_file($input_text, $filename)
     {
-        $handle = fopen("$filename", "w") or exit("<p> Impossible d'ouvrir le fichier</p>");
-        fwrite($handle, $input_text);
-        fclose($handle);
+        if(!empty($input_text)) {
+            $handle = fopen("$filename", "w") or exit("<p> Impossible d'ouvrir le fichier</p>");
+            fwrite($handle, $input_text);
+            fclose($handle);
+        }
         
     }
     private function UploadFile(PageModel $page)
