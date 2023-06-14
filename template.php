@@ -99,7 +99,7 @@ $weather = $requestservice->WeatherApiRequest();
     <!-- Top content -->
     <div class="top-content">
         <!-- Carousel -->
-        <div id="carousel-example" class="carousel slide" data-ride="carousel">
+        <div id="carousel-example" class="carousel slide" data-ride="carousel" data-mdb-animation="slide-right">
             <ol class="carousel-indicators">
                 <?php
                 $x = 1000;
@@ -122,8 +122,8 @@ $weather = $requestservice->WeatherApiRequest();
                 $x = 1000;
                 foreach ($pages as $value) {
                     if ($value->estAffiche == 1) {
-                        $ifcustom = $value->customHtml == 1 ? "width: 74vw":"width: 99vw";
-                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; $ifcustom !important;'" : "";
+                      
+                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; width: 100vw !important;'" : "";
                         $is_active = $i == 0 ? "active" : "";
 
                         echo "<div class='carousel-item carousel-item-$i $is_active' data-interval='" . $value->temps * $x . "'>";
@@ -131,12 +131,14 @@ $weather = $requestservice->WeatherApiRequest();
                 <div class='carousel-caption'>
                 <?php
                 echo "<div $style class='row'>";
-              
+                        if($value->news==0 && $value->planning==0 && $value->weather==0 && $value->map==0 && $value->customHtml==0) {
+                            echo '<div class="col-11"></div>';
+                        }
                         if ($value->news == 1) {
                             $style = $value->weather == 1 && $value->planning == 1 ? "style='margin-top: -42px; margin-left: -2vw; '" : "";
                             echo "<div class='col-11'>
                             
-                                <div class='news custom-box-news' $style>";
+                                <div class='news' $style>";
                                 $MAX = count($News->articles);
                                 $index = rand(0, $MAX);
                                 if(isset($News->articles[$index]) && $News->articles[$index]->title != null) {
@@ -148,9 +150,10 @@ $weather = $requestservice->WeatherApiRequest();
                         }
                         if ($value->weather == 1) {
 
+                            $class =  $value->news == 0 &&  $value->map == 0 &&  $value->planning == 0 ? "col-11" : "col-3";
                             $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 70vh;'";
                             echo "
-                                <div class='weather col-3' $style>
+                                <div class='weather $class' $style>
                                 <div class='custom-box'>
                                 <img class='icon' src='https://openweathermap.org/img/w/" . $weather->weather[0]->icon . ".png'>
                                 <p class='city'>" . $weather->name . "</p>
@@ -161,23 +164,28 @@ $weather = $requestservice->WeatherApiRequest();
                         }
                         if ($value->map == 1 && $value->planning == 0) {
                             $class = $value->news == 0 && $value->weather == 0 ? "col-11" : "col-8";
+                            $style = $value->news == 0 ? "width='520px' height='420px'":"width='420px' height='380px'";
                             echo '<div class="maps '.$class.' offset-1 p-0">
-                                <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084">
+                                <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084"'.$style.'>
                                     </iframe>
-                                    </div>';
+                                </div>';
                         }
                         if($value->customHtml == 1) {
-                           $style = $value->map == 0 && $value->planning == 0 && $value->weather == 0 ? "class='customHtml col-12 offset-1 p-0''" : "class='customHtml col-8 offset-1 p-0'";
-                           echo "<div class='custom-content'><iframe src='index.html'></iframe></div>";
+                           
+                           echo "<div class='customHtml col-11 offset-1 p-0'>
+                           $value->html
+                           </div>";
                         }
                         if ($value->planning == 1 && $value->map == 0) {
-                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='margin-left: -84px; max-height: 420px; margin-top: -30px;'" : "";
+                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='margin-left: -80px; max-height: 420px; margin-top: -37px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
                             $class = $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "col-11" : "col-8";
-                            $wrapperStyle = $value->news == 1 && $value->map == 0 && $value->weather == 1 ? "style='text-align: left;margin: 2px auto;padding: 0.5rem 0.5rem 0.5rem 1em;columns: 12rem;column-gap: 0rem;'" : "";
+                            $wrapperStyle = $value->news == 1 && $value->map == 0 && $value->weather == 1 ? "style='text-align: left;margin: -5px auto;padding: 0.5rem 0.5rem 0.5rem 1em;columns: 12rem;column-gap: 0rem;'" : "";
                             echo "
                                 <div class='planning $class offset-1 p-0' $style>
                                 <div class='wrapper' $wrapperStyle >
-                                <ol class='olist'>
+                                <ol class='olist' style='margin: 0; margin-left: -60px;'>
+                                <img style='margin-left: 30px;' src='images/themanislogo.png' width='60%' height='15%'/>
+                                <h1 style='margin: 5px; font-size: 1.2em; color: black; font-weight: 800px;'> Cette Semaine dans nos salles </h1>
                                 ";
                             foreach ($DigiFormat as $key => $value) {
                                 if (!empty($value)) {
@@ -210,7 +218,14 @@ $weather = $requestservice->WeatherApiRequest();
                 }
                 ?>
             </div>
-           
+            <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
         <!-- End carousel -->
     </div>

@@ -13,9 +13,9 @@ class PageService
 
     private function read_file($filename)
     {
-        if (file_exists($filename) && filesize("$filename") > 0) {
-            $handle = fopen("$filename", "r") or exit("<p> Impossible d'ouvrir le fichier</p>");
-            $filesize = filesize("$filename");
+        if (file_exists("html/$filename") && filesize("html/$filename") > 0) {
+            $handle = fopen("html/$filename", "r") or exit("<p> Impossible d'ouvrir le fichier</p>");
+            $filesize = filesize("html/$filename");
             $content = fread($handle, $filesize);
             fclose($handle);
             return $content;
@@ -26,7 +26,7 @@ class PageService
     private function write_file($input_text, $filename)
     {
         if(!empty($input_text)) {
-            $handle = fopen("$filename", "w") or exit("<p> Impossible d'ouvrir le fichier</p>");
+            $handle = fopen("html/$filename", "w") or exit("<p> Impossible d'ouvrir le fichier</p>");
             fwrite($handle, $input_text);
             fclose($handle);
         }
@@ -66,8 +66,8 @@ class PageService
     public function Supprimer(PageModel $page)
     {
         $model = new SqlModel();
-        if (file_exists($page->nomFichier))
-            unlink($page->nomFichier);
+        if (file_exists("html/$page->nomFichier"))
+            unlink("html/$page->nomFichier");
         if (file_exists("images/".$page->nomImage)) 
             unlink("images/".$page->nomImage);
         $model->sql = "DELETE FROM pages WHERE id_pages=:id_pages;";

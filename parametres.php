@@ -40,7 +40,8 @@ if (isset($_POST['_pageId'])) {
     if (isset($_POST['_pageEnregister']) || isset($_POST['_pageAjouter'])) {
 
         $pageCourante->nom = $_POST['_pageNom'];
-        $pageCourante->ordre = $_POST['_pageOrdre'];
+        if(!empty($_POST['_pageOrdre']))
+            $pageCourante->ordre = $_POST['_pageOrdre'];
         $pageCourante->temps = $_POST['_pageTemps'];
         $pageCourante->estAffiche = isset($_POST['_pageAffiche']);
         $pageCourante->html = $_POST['_pageHtml'];
