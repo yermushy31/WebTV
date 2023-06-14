@@ -158,7 +158,7 @@
 
 .messagedefilant div:after {
 	content: attr(data-text);
-	animation: defilement2 12s infinite linear;
+	animation: defilement2 12s infinite cubic-bezier(0, -0.04, 0, -0.04);
 	background: transparent;
 }
 
