@@ -17,7 +17,7 @@
 }
 
 .carousel-item {
-	transition: transform .3s ease;
+	transition: transform .8s ease;
 }
 .row {
 	height: 80vh;
