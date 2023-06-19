@@ -77,7 +77,7 @@ $weather = $requestservice->WeatherApiRequest();
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+    <script src="script/parametres.js"></script>
 </head>
 
 <style>
@@ -123,7 +123,7 @@ $weather = $requestservice->WeatherApiRequest();
                 foreach ($pages as $value) {
                     if ($value->estAffiche == 1) {
                       
-                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; width: 100% !important;'" : "";
+                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; width: 140% !important;margin-left: -128px;'" : "";
                         $is_active = $i == 0 ? "active" : "";
 
                         echo "<div class='carousel-item carousel-item-$i $is_active' data-interval='" . $value->temps * $x . "'>";
@@ -151,7 +151,7 @@ $weather = $requestservice->WeatherApiRequest();
                         if ($value->weather == 1) {
 
                             $class =  $value->news == 0 &&  $value->map == 0 &&  $value->planning == 0 ? "col-11" : "col-3";
-                            $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 70vh;'";
+                            $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 60vh;'";
                             echo "
                                 <div class='weather $class' $style>
                                 <div class='custom-box'>
@@ -172,23 +172,60 @@ $weather = $requestservice->WeatherApiRequest();
                         }
                         if($value->customHtml == 1) {
                            
-                           echo "<div class='customHtml col-12 offset-0 p-0'>
+                           echo "<section class='customHtml col-12 offset-0 p-0'>
+                           <style>
+                           #wrap {
+                            width: 750px;
+                            height: 1500px;
+                            padding: 0;
+                            overflow: hidden;
+                          }
+                          
+                          #scaled-frame {
+                            width: 1000px;
+                            height: 2000px;
+                            border: 0px;
+                          }
+                          
+                          #scaled-frame {
+                            zoom: 0.75;
+                            -moz-transform: scale(0.75);
+                            -moz-transform-origin: 0 0;
+                            -o-transform: scale(0.75);
+                            -o-transform-origin: 0 0;
+                            -webkit-transform: scale(0.75);
+                            -webkit-transform-origin: 0 0;
+                          }
+                          
+                          @media screen and (-webkit-min-device-pixel-ratio:0) {
+                            #scaled-frame {
+                              zoom: 2;
+                            }
+                          }
+                           </style>
+                           <div id='wrap'>
+                           <iframe id='scaled-frame' style='width: 100%; height: 100%;'>
                            $value->html
-                           </div>";
+                           </iframe>
+                           </div>
+                           </section>";
                         }
                         if ($value->planning == 1 && $value->map == 0) {
 
                             $listyle = "style='text-align: left;margin: -5px auto;'";
-                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='max-height: 420px; margin-top: -37px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
+                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
                             $class = $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "col-12" : "col-8";
-                           // $wrapperStyle = $value->news == 1 && $value->map == 0 && $value->weather == 1 ? "style='text-align: left;margin: -5px auto;padding: 0.5rem 0.5rem 0.5rem 1em;columns: 12rem;column-gap: 0rem;'" : "";
+                        
                             echo "
                                 <div class='planning $class offset-0 p-0' $style>
-                                 
-                                <ol class='olist' style='margin: 0; margin-left: -60px;'>
-                                <li><img style='margin-left: 30px;' src='images/themanislogo.png' width='30%' height='15%'/></li>
-                                <li><h1 style='margin: 5px; font-size: 1.2em; color: black; font-weight: 800px;'> Cette Semaine dans nos salles </h1></li>
-                                ";
+                                <section style='height: 420px;overflow: hidden;'>
+                                <div class='titre-planning' style='max-height: 50px;text-align: center;'>
+                                <h4 class='fancy' style=' text-transform: uppercase;margin: 10px; font-size: 2.0rem;'>Cette semaine chez
+                                <img style='max-width: 100%; max-height: 85px;' src='images/themanislogo.png'/></h4>
+                                
+                                </div>
+                                <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 5;margin-top: 80px;'>";
+
                             foreach ($DigiFormat as $key => $value) {
                                 if (!empty($value)) {
                                     $name = $value['name'] ?? "";
@@ -202,12 +239,12 @@ $weather = $requestservice->WeatherApiRequest();
                                     $startdate = $value['startDate'] ?? "";
                                     $enddate = $value['endDate'] ?? "";
                                     if(!empty($instructeur)) 
-                                        echo "<li><span>$name</span><span>$instructeur</span></li>";
+                                        echo "<li style='border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'><strong>$name</strong> $instructeur</li>";
                                 }
                             }
                             echo '
-                                </ol>
-                               
+                              </ul>
+                                </section>
                                 </div>
                                 ';
                         }
@@ -220,14 +257,7 @@ $weather = $requestservice->WeatherApiRequest();
                 }
                 ?>
             </div>
-            <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+
         </div>
         <!-- End carousel -->
     </div>
