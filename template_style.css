@@ -19,14 +19,6 @@
 .carousel-item {
 	transition: transform .8s ease;
 }
-.row {
-	height: 80vh;
-	width: 70vw;
-}
-
-.col-12 {
-	height: 0;
-}
 
 .weather {
 	overflow: hidden;
@@ -64,7 +56,6 @@
 
 .planning {
 	overflow: hidden;
-    
 	max-height: 420px;
 	background: rgb(255, 255, 255);
 	border-radius: 16px;
@@ -74,6 +65,9 @@
 	border: 0.3rem solid #1b667b;
 
 }
+
+
+
 
 .cutstomHtml {
     overflow: hidden;

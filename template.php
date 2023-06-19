@@ -123,7 +123,7 @@ $weather = $requestservice->WeatherApiRequest();
                 foreach ($pages as $value) {
                     if ($value->estAffiche == 1) {
                       
-                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; width: 100vw !important;'" : "";
+                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; width: 100% !important;'" : "";
                         $is_active = $i == 0 ? "active" : "";
 
                         echo "<div class='carousel-item carousel-item-$i $is_active' data-interval='" . $value->temps * $x . "'>";
@@ -140,7 +140,7 @@ $weather = $requestservice->WeatherApiRequest();
                             
                                 <div class='news' $style>";
                                 $MAX = count($News->articles);
-                                $index = rand(0, $MAX);
+                                $index = rand(0, $MAX-1);
                                 if(isset($News->articles[$index]) && $News->articles[$index]->title != null) {
                             echo '<div class="messagedefilant"><div data-text="' . $News->articles[$index]->title. '"><span>' . $News->articles[$index]->title. '</span></div></div>';
                                 }
@@ -172,20 +172,22 @@ $weather = $requestservice->WeatherApiRequest();
                         }
                         if($value->customHtml == 1) {
                            
-                           echo "<div class='customHtml col-11 offset-1 p-0'>
+                           echo "<div class='customHtml col-12 offset-0 p-0'>
                            $value->html
                            </div>";
                         }
                         if ($value->planning == 1 && $value->map == 0) {
-                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='margin-left: -80px; max-height: 420px; margin-top: -37px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
-                            $class = $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "col-11" : "col-8";
-                            $wrapperStyle = $value->news == 1 && $value->map == 0 && $value->weather == 1 ? "style='text-align: left;margin: -5px auto;padding: 0.5rem 0.5rem 0.5rem 1em;columns: 12rem;column-gap: 0rem;'" : "";
+
+                            $listyle = "style='text-align: left;margin: -5px auto;'";
+                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='max-height: 420px; margin-top: -37px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
+                            $class = $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "col-12" : "col-8";
+                           // $wrapperStyle = $value->news == 1 && $value->map == 0 && $value->weather == 1 ? "style='text-align: left;margin: -5px auto;padding: 0.5rem 0.5rem 0.5rem 1em;columns: 12rem;column-gap: 0rem;'" : "";
                             echo "
-                                <div class='planning $class offset-1 p-0' $style>
-                                <div class='wrapper' $wrapperStyle >
+                                <div class='planning $class offset-0 p-0' $style>
+                                 
                                 <ol class='olist' style='margin: 0; margin-left: -60px;'>
-                                <img style='margin-left: 30px;' src='images/themanislogo.png' width='60%' height='15%'/>
-                                <h1 style='margin: 5px; font-size: 1.2em; color: black; font-weight: 800px;'> Cette Semaine dans nos salles </h1>
+                                <li><img style='margin-left: 30px;' src='images/themanislogo.png' width='30%' height='15%'/></li>
+                                <li><h1 style='margin: 5px; font-size: 1.2em; color: black; font-weight: 800px;'> Cette Semaine dans nos salles </h1></li>
                                 ";
                             foreach ($DigiFormat as $key => $value) {
                                 if (!empty($value)) {
@@ -200,12 +202,12 @@ $weather = $requestservice->WeatherApiRequest();
                                     $startdate = $value['startDate'] ?? "";
                                     $enddate = $value['endDate'] ?? "";
                                     if(!empty($instructeur)) 
-                                        echo "<ul><span>$name</span><span>$instructeur</span></ul>";
+                                        echo "<li><span>$name</span><span>$instructeur</span></li>";
                                 }
                             }
                             echo '
                                 </ol>
-                                </div>
+                               
                                 </div>
                                 ';
                         }
