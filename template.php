@@ -14,7 +14,7 @@ $dbmodel = new DbModel();
 $dbmodel->dsn = "mysql:host=localhost;dbname=webtv";
 $dbmodel->user = "root";
 $dbmodel->passwd = "";
-$dbmodel->options =  array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
+$dbmodel->options = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
 
 $dbservice = new DbService($dbmodel);
 $service = new PageService($dbservice);
@@ -72,12 +72,21 @@ $weather = $requestservice->WeatherApiRequest();
     <!-- <meta http-equiv="refresh" content="2"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="template_style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="script/parametres.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="script/parametres.js">
+    </script>
+
 </head>
 
 <style>
@@ -87,7 +96,7 @@ $weather = $requestservice->WeatherApiRequest();
         foreach ($pages as $value) {
             echo ("
         .top-content .carousel-item-$i {
-            background-image: url('images/" . $value->nomImage . "?v=".time()."');
+            background-image: url('images/" . $value->nomImage . "?v=" . time() . "');
         }
         ");
             $i++;
@@ -122,37 +131,58 @@ $weather = $requestservice->WeatherApiRequest();
                 $x = 1000;
                 foreach ($pages as $value) {
                     if ($value->estAffiche == 1) {
-                      
-                        $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='height: 80vh; width: 140% !important;margin-left: -128px;'" : "";
+
+                        $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='height: 80vh; width: 140% !important;margin-left: -128px;'" : "";
                         $is_active = $i == 0 ? "active" : "";
 
                         echo "<div class='carousel-item carousel-item-$i $is_active' data-interval='" . $value->temps * $x . "'>";
-                ?>
-                <div class='carousel-caption'>
-                <?php
-                echo "<div $style class='row'>";
-                        if($value->news==0 && $value->planning==0 && $value->weather==0 && $value->map==0 && $value->customHtml==0) {
-                            echo '<div class="col-11"></div>';
-                        }
-                        if ($value->news == 1) {
-                            $style = $value->weather == 1 && $value->planning == 1 ? "style='margin-top: -42px; margin-left: -2vw; '" : "";
-                            echo "<div class='col-11'>
+                        ?>
+                        <div class='carousel-caption'>
+                            <?php
+                            echo "<div $style class='row'>";
+                            if ($value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0) {
+                                echo '<div class="col-11"></div>';
+                            }
+                            if ($value->news == 1) {
+                                $style = $value->weather == 1 && $value->planning == 1 ? "style='margin-top: -42px; margin-left: -2vw; '" : "";
+                                echo '
+                                <div class="news col-11 offset-0"' . $style . '>
+                                    <div id="newsid" class="messagedefilant"></div>
+                                </div>';
+                                echo '
+                            <script>
+                            async function displayRandomNews() {
+                                var phparray = ' . json_encode($News, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ';
+                                var newsContainer = document.querySelector(".news");
                             
-                                <div class='news' $style>";
-                                $MAX = count($News->articles);
-                                $index = rand(0, $MAX-1);
-                                if(isset($News->articles[$index]) && $News->articles[$index]->title != null) {
-                            echo '<div class="messagedefilant"><div data-text="' . $News->articles[$index]->title. '"><span>' . $News->articles[$index]->title. '</span></div></div>';
+                                function displayNews() {
+                                    var randomIndex = Math.floor(Math.random() * phparray.articles.length);
+                                    var newsHTML = "";
+                            
+                                    if (phparray.articles[randomIndex].title !== undefined) {
+                                        newsHTML += `<div class="messagedefilant"><div data-text="${phparray.articles[randomIndex].title}"><span>${phparray.articles[randomIndex].title}</span></div></div>`;
+                                    }
+                            
+                                    newsContainer.innerHTML = newsHTML;
                                 }
-                            echo "
-                                </div>
-                                </div>";
-                        }
-                        if ($value->weather == 1) {
+                            
+                                displayNews(); 
+                            
+                                setInterval(displayNews, 8000); // Affiche une nouvelle toutes les 8 secondes
+                            }
+                            
+                            displayRandomNews();
+                            
+                            </script>';
+                            }
 
-                            $class =  $value->news == 0 &&  $value->map == 0 &&  $value->planning == 0 ? "col-11" : "col-3";
-                            $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 60vh;'";
-                            echo "
+                            if ($value->weather == 1) {
+
+                                $class = $value->news == 0 && $value->map == 0 && $value->planning == 0 ? "col-11" : "col-3";
+                                $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 60vh;'";
+                                echo "
+
+                               
                                 <div class='weather $class' $style>
                                 <div class='custom-box'>
                                 <img class='icon' src='https://openweathermap.org/img/w/" . $weather->weather[0]->icon . ".png'>
@@ -161,28 +191,28 @@ $weather = $requestservice->WeatherApiRequest();
                                 <p class='description'>" . $weather->weather[0]->description . "</p>
                                 </div>
                                 </div>";
-                        }
-                        if ($value->map == 1 && $value->planning == 0) {
-                            $class = $value->news == 0 && $value->weather == 0 ? "col-11" : "col-8";
-                            $style = $value->news == 0 ? "width='520px' height='420px'":"width='420px' height='380px'";
-                            echo '<div class="maps '.$class.' offset-1 p-0">
-                                <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084"'.$style.'>
+                            }
+                            if ($value->map == 1 && $value->planning == 0) {
+                                $class = $value->news == 0 && $value->weather == 0 ? "col-11" : "col-8";
+                                $style = $value->news == 0 ? "width='520px' height='420px'" : "width='420px' height='380px'";
+                                echo '<div class="maps ' . $class . ' offset-1 p-0">
+                                <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084"' . $style . '>
                                     </iframe>
                                 </div>';
-                        }
-                        if($value->customHtml == 1) {
-                           
-                           echo "<section class='customHtml col-12 offset-0 p-0'>
+                            }
+                            if ($value->customHtml == 1) {
+
+                                echo "<section class='customHtml col-12 offset-0 p-0'>
                            <style>
                            #wrap {
-                            width: 750px;
+                            width: 100%;
                             height: 1500px;
                             padding: 0;
                             overflow: hidden;
                           }
                           
                           #scaled-frame {
-                            width: 1000px;
+                            width: 100%;
                             height: 2000px;
                             border: 0px;
                           }
@@ -209,14 +239,14 @@ $weather = $requestservice->WeatherApiRequest();
                            </iframe>
                            </div>
                            </section>";
-                        }
-                        if ($value->planning == 1 && $value->map == 0) {
+                            }
+                            if ($value->planning == 1 && $value->map == 0) {
 
-                            $listyle = "style='text-align: left;margin: -5px auto;'";
-                            $style =  $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
-                            $class = $value->news == 0 &&  $value->map == 0 &&  $value->weather == 0 ? "col-12" : "col-8";
-                        
-                            echo "
+                                $listyle = "style='text-align: left;margin: -5px auto;'";
+                                $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
+                                $class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
+
+                                echo "
                                 <div class='planning $class offset-0 p-0' $style>
                                 <section style='height: 420px;overflow: hidden;'>
                                 <div class='titre-planning' style='max-height: 50px;text-align: center;'>
@@ -224,31 +254,31 @@ $weather = $requestservice->WeatherApiRequest();
                                 <img style='max-width: 100%; max-height: 85px;' src='images/themanislogo.png'/></h4>
                                 
                                 </div>
-                                <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 5;margin-top: 80px;'>";
+                                <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 70px;'>";
 
-                            foreach ($DigiFormat as $key => $value) {
-                                if (!empty($value)) {
-                                    $name = $value['name'] ?? "";
-                                    $instructeur = "";
-                                    foreach($value['trainingSessionInstructors'] as $another) {
-                                       $firstname = $another['instructor']['firstname'];
-                                       $lastname  = $another['instructor']['lastname'];
-                                       $instructeur = $firstname . " " . $lastname;
+                                foreach ($DigiFormat as $key => $value) {
+                                    if (!empty($value)) {
+                                        $name = $value['name'] ?? "";
+                                        $instructeur = "";
+                                        foreach ($value['trainingSessionInstructors'] as $another) {
+                                            $firstname = $another['instructor']['firstname'];
+                                            $lastname = $another['instructor']['lastname'];
+                                            $instructeur = $firstname . " " . $lastname;
 
+                                        }
+                                        $startdate = $value['startDate'] ?? "";
+                                        $enddate = $value['endDate'] ?? "";
+                                        if (!empty($instructeur))
+                                            echo "<li style='border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'><strong>$name</strong> $instructeur</li>";
                                     }
-                                    $startdate = $value['startDate'] ?? "";
-                                    $enddate = $value['endDate'] ?? "";
-                                    if(!empty($instructeur)) 
-                                        echo "<li style='border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'><strong>$name</strong> $instructeur</li>";
                                 }
-                            }
-                            echo '
+                                echo '
                               </ul>
                                 </section>
                                 </div>
                                 ';
-                        }
-                        echo "
+                            }
+                            echo "
                             </div>                 
                             </div>
                             </div>";
@@ -256,10 +286,11 @@ $weather = $requestservice->WeatherApiRequest();
                     $i++;
                 }
                 ?>
-            </div>
+                </div>
 
+            </div>
+            <!-- End carousel -->
         </div>
-        <!-- End carousel -->
-    </div>
 </body>
+
 </html>

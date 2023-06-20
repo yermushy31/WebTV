@@ -48,13 +48,13 @@ async function main() {
     var cityName = document.querySelectorAll(".city");
 
     var newsHTML = "";
-    var MAX = Object.keys(newsData.articles).length;
+    var MAX = Object.keys(parsedJson.articles).length;
     let randomindex = Math.round(getRandom(0, MAX));
-    if (newsData.articles[randomindex].title != undefined)
-        newsHTML += '<div class="messagedefilant"><div data-text="' + newsData.articles[randomindex].title + '!---"><span>' + newsData.articles[randomindex].title + '</span></div></div>'
-    var second_area = document.querySelectorAll(".custom-box-news");
+    if (parsedJson.articles[randomindex].title != undefined)
+        newsHTML += '<div class="messagedefilant"><div data-text="' + parsedJson.articles[randomindex].title + '!---"><span>' + parsedJson.articles[randomindex].title + '</span></div></div>'
+    var second_area = document.querySelectorAll(".news");
     second_area.forEach(item => item.innerHTML = newsHTML);
-
+    "<div data-text='" + parsedJson.articles[randomindex].title + "'><span>"+ parsedJson.articles[randomindex].title + "</span></div>";
 
 
     cityName.forEach(item => {
