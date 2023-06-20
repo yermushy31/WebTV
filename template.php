@@ -154,7 +154,6 @@ $weather = $requestservice->WeatherApiRequest();
                             async function displayRandomNews() {
                                 var phparray = ' . json_encode($News, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ';
                                 var newsContainer = document.querySelector(".news");
-                            
                                 function displayNews() {
                                     var randomIndex = Math.floor(Math.random() * phparray.articles.length);
                                     var newsHTML = "";
