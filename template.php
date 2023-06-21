@@ -56,9 +56,7 @@ $requestmodel->token = "947c00c93252788bf42802507b3aab97";
 $requestmodel->url = "https://api.openweathermap.org/data/2.5/weather?id=2972315&lang=fr&units=metric&APPID=" . $requestmodel->token;
 
 $weather = $requestservice->WeatherApiRequest();
-//var_dump($weather);
-//echo json_encode($DigiFormat);
-//print_r($News);
+
 
 ?>
 
@@ -116,15 +114,14 @@ $weather = $requestservice->WeatherApiRequest();
                 foreach ($pages as $value) {
                     if ($value->estAffiche == 1) {
                         $is_active = $i == 0 ? "class='active'" : "";
-
-                        echo "<li data-target='#carousel-example' data-slide-to='$i' $is_active  data-interval='" . $value->temps * $x . "'>
-                        </li>";
+                        ?>
+                       <li data-target='#carousel-example' data-slide-to='<?php echo($i); ?>' <?php echo $is_active; ?>  data-interval='<?php echo($value->temps * $x);?>'>
+                        </li>
+                   <?php }
+                   $i++;
                     }
-                }
-                $i++;
-                ?>
+                    ?>
             </ol>
-
             <div class="carousel-inner">
                 <?php
                 $i = 0;
@@ -133,23 +130,24 @@ $weather = $requestservice->WeatherApiRequest();
                     if ($value->estAffiche == 1) {
 
                         $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='height: 80vh; width: 140% !important;margin-left: -128px;'" : "";
-                        $is_active = $i == 0 ? "active" : "";
-
-                        echo "<div class='carousel-item carousel-item-$i $is_active' data-interval='" . $value->temps * $x . "'>";
-                        ?>
+                        $is_active = $i == 0 ? "active" : "";?>
+                        <div class='carousel-item carousel-item-<?php echo $i ?> <?php echo $is_active ?>' data-interval='<?php echo($value->temps * $x); ?>'>
+                    
                         <div class='carousel-caption'>
+                            
+                            <div <?php echo $style; ?> class='row'>
                             <?php
-                            echo "<div $style class='row'>";
-                            if ($value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0) {
-                                echo '<div class="col-11"></div>';
+                            if ($value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0) {?>
+                               <div class="col-11"></div>
+                            <?php 
                             }
                             if ($value->news == 1) {
                                 $style = $value->weather == 1 && $value->planning == 1 ? "style='margin-top: -42px; margin-left: -2vw; '" : "";
-                                echo '
-                                <div class="news col-11 offset-0"' . $style . '>
+                            ?>
+                                <div class="news col-11 offset-0" <?php echo $style; ?>>
                                     <div id="newsid" class="messagedefilant"></div>
-                                </div>';
-                                echo '
+                                </div>
+                            
                             <script>
                             async function displayRandomNews() {
                                 var phparray = ' . json_encode($News, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ';
@@ -172,36 +170,36 @@ $weather = $requestservice->WeatherApiRequest();
                             
                             displayRandomNews();
                             
-                            </script>';
-                            }
-
-                            if ($value->weather == 1) {
+                            </script>
+                            <?php } ?>  
+                            
+                           <?php if ($value->weather == 1)  {
 
                                 $class = $value->news == 0 && $value->map == 0 && $value->planning == 0 ? "col-11" : "col-3";
-                                $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 60vh;'";
-                                echo "
-
-                               
-                                <div class='weather $class' $style>
+                                $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 60vh;'"; 
+                                ?>
+                                <div class='weather <?php echo $class; ?>' <?php echo $style; ?>>
                                 <div class='custom-box'>
-                                <img class='icon' src='https://openweathermap.org/img/w/" . $weather->weather[0]->icon . ".png'>
-                                <p class='city'>" . $weather->name . "</p>
-                                <p class='temperature'>" . round($weather->main->temp) . "&deg;</p>
-                                <p class='description'>" . $weather->weather[0]->description . "</p>
+                                <img class='icon' src='https://openweathermap.org/img/w/<?php echo $weather->weather[0]->icon; ?>.png'>
+                                <p class='city'><?php echo $weather->name?></p>
+                                <p class='temperature'><?php echo round($weather->main->temp); ?>&deg;</p>
+                                <p class='description'><?php echo $weather->weather[0]->description ?></p>
                                 </div>
-                                </div>";
-                            }
-                            if ($value->map == 1 && $value->planning == 0) {
+                                </div>
+                            <?php } ?>
+                            
+                            <?php if ($value->map == 1 && $value->planning == 0) {
                                 $class = $value->news == 0 && $value->weather == 0 ? "col-11" : "col-8";
                                 $style = $value->news == 0 ? "width='520px' height='420px'" : "width='420px' height='380px'";
-                                echo '<div class="maps ' . $class . ' offset-1 p-0">
-                                <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084"' . $style . '>
-                                    </iframe>
-                                </div>';
-                            }
-                            if ($value->customHtml == 1) {
+                            ?>
+                                <div class="maps <?php echo $class; ?> offset-1 p-0">
+                                <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084" <?php echo $style; ?>></iframe>
+                                </div>
+                            <?php } ?>
+                            <?php
+                             if ($value->customHtml == 1) {?>
 
-                                echo "<section class='customHtml col-12 offset-0 p-0'>
+                                <section class='customHtml col-12 offset-0 p-0'>
                            <style>
                            #wrap {
                             width: 100%;
@@ -234,18 +232,18 @@ $weather = $requestservice->WeatherApiRequest();
                            </style>
                            <div id='wrap'>
                            <iframe id='scaled-frame' style='width: 100%; height: 100%;'>
-                           $value->html
+                           <?php echo $value->html ?>
                            </iframe>
                            </div>
                            </section>";
-                            }
-                            if ($value->planning == 1 && $value->map == 0) {
+                           <?php } ?>
+                           <?php if ($value->planning == 1 && $value->map == 0) {
 
                                 $listyle = "style='text-align: left;margin: -5px auto;'";
                                 $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
                                 $class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
-
-                                echo "
+                            ?>
+                           
                                 <div class='planning $class offset-0 p-0' $style>
                                 <section style='height: 420px;overflow: hidden;'>
                                 <div class='titre-planning' style='max-height: 50px;text-align: center;'>
@@ -253,8 +251,8 @@ $weather = $requestservice->WeatherApiRequest();
                                 <img style='max-width: 100%; max-height: 85px;' src='images/themanislogo.png'/></h4>
                                 
                                 </div>
-                                <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 70px;'>";
-
+                                <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 70px;'>
+                               <?php
                                 foreach ($DigiFormat as $key => $value) {
                                     if (!empty($value)) {
                                         $name = $value['name'] ?? "";
@@ -267,8 +265,9 @@ $weather = $requestservice->WeatherApiRequest();
                                         }
                                         $startdate = $value['startDate'] ?? "";
                                         $enddate = $value['endDate'] ?? "";
-                                        if (!empty($instructeur))
-                                            echo "<li style='border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'><strong>$name</strong> $instructeur</li>";
+                                        if (!empty($instructeur))?>
+                                            <li style='border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'><strong><?php echo $name; ?></strong><?php echo $instructeur; ?></li>
+                                    <?php
                                     }
                                 }
                                 echo '
@@ -291,5 +290,4 @@ $weather = $requestservice->WeatherApiRequest();
             <!-- End carousel -->
         </div>
 </body>
-
 </html>
