@@ -66,7 +66,7 @@ $weather = $requestservice->WeatherApiRequest();
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="300">
+    <meta http-equiv="refresh" content="120">
     <!-- <meta http-equiv="refresh" content="2"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
     <!-- Bootstrap CSS -->
@@ -115,168 +115,204 @@ $weather = $requestservice->WeatherApiRequest();
                     if ($value->estAffiche == 1) {
                         $is_active = $i == 0 ? "class='active'" : "";
                         ?>
-                       <li data-target='#carousel-example' data-slide-to='<?php echo($i); ?>' <?php echo $is_active; ?>  data-interval='<?php echo($value->temps * $x);?>'>
+                        <li data-target='#carousel-example' data-slide-to='<?php echo ($i); ?>' <?php echo $is_active; ?>
+                            data-interval='<?php echo ($value->temps * $x); ?>'>
                         </li>
-                   <?php }
-                   $i++;
-                    }
-                    ?>
+                    <?php }
+                    $i++;
+                }
+                ?>
             </ol>
             <div class="carousel-inner">
                 <?php
+
                 $i = 0;
                 $x = 1000;
                 foreach ($pages as $value) {
                     if ($value->estAffiche == 1) {
 
-                        $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='height: 80vh; width: 140% !important;margin-left: -128px;'" : "";
-                        $is_active = $i == 0 ? "active" : "";?>
-                        <div class='carousel-item carousel-item-<?php echo $i ?> <?php echo $is_active ?>' data-interval='<?php echo($value->temps * $x); ?>'>
-                    
-                        <div class='carousel-caption'>
-                            
-                            <div <?php echo $style; ?> class='row'>
-                            <?php
-                            if ($value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0) {?>
-                               <div class="col-11"></div>
-                            <?php 
-                            }
-                            if ($value->news == 1) {
-                                $style = $value->weather == 1 && $value->planning == 1 ? "style='margin-top: -42px; margin-left: -2vw; '" : "";
-                            ?>
-                                <div class="news col-11 offset-0" <?php echo $style; ?>>
-                                    <div id="newsid" class="messagedefilant"></div>
-                                </div>
-                            
-                            <script>
-                            async function displayRandomNews() {
-                                var phparray = ' . json_encode($News, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ';
-                                var newsContainer = document.querySelector(".news");
-                                function displayNews() {
-                                    var randomIndex = Math.floor(Math.random() * phparray.articles.length);
-                                    var newsHTML = "";
-                            
-                                    if (phparray.articles[randomIndex].title !== undefined) {
-                                        newsHTML += `<div class="messagedefilant"><div data-text="${phparray.articles[randomIndex].title}"><span>${phparray.articles[randomIndex].title}</span></div></div>`;
-                                    }
-                            
-                                    newsContainer.innerHTML = newsHTML;
-                                }
-                            
-                                displayNews(); 
-                            
-                                setInterval(displayNews, 8000); // Affiche une nouvelle toutes les 8 secondes
-                            }
-                            
-                            displayRandomNews();
-                            
-                            </script>
-                            <?php } ?>  
-                            
-                           <?php if ($value->weather == 1)  {
+                        $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='height: 82vh; width: 135% !important;margin-left: -120px;'" : "";
+                        $is_active = $i == 0 ? "active" : ""; ?>
+                        <div class='carousel-item carousel-item-<?php echo $i ?> <?php echo $is_active ?>'
+                            data-interval='<?php echo ($value->temps * $x); ?>'>
 
-                                $class = $value->news == 0 && $value->map == 0 && $value->planning == 0 ? "col-11" : "col-3";
-                                $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 60vh;'"; 
-                                ?>
-                                <div class='weather <?php echo $class; ?>' <?php echo $style; ?>>
-                                <div class='custom-box'>
-                                <img class='icon' src='https://openweathermap.org/img/w/<?php echo $weather->weather[0]->icon; ?>.png'>
-                                <p class='city'><?php echo $weather->name?></p>
-                                <p class='temperature'><?php echo round($weather->main->temp); ?>&deg;</p>
-                                <p class='description'><?php echo $weather->weather[0]->description ?></p>
-                                </div>
-                                </div>
-                            <?php } ?>
-                            
-                            <?php if ($value->map == 1 && $value->planning == 0) {
-                                $class = $value->news == 0 && $value->weather == 0 ? "col-11" : "col-8";
-                                $style = $value->news == 0 ? "width='520px' height='420px'" : "width='420px' height='380px'";
-                            ?>
-                                <div class="maps <?php echo $class; ?> offset-1 p-0">
-                                <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084" <?php echo $style; ?>></iframe>
-                                </div>
-                            <?php } ?>
-                            <?php
-                             if ($value->customHtml == 1) {?>
+                            <div class='carousel-caption'>
 
-                                <section class='customHtml col-12 offset-0 p-0'>
-                           <style>
-                           #wrap {
-                            width: 100%;
-                            height: 1500px;
-                            padding: 0;
-                            overflow: hidden;
-                          }
-                          
-                          #scaled-frame {
-                            width: 100%;
-                            height: 2000px;
-                            border: 0px;
-                          }
-                          
-                          #scaled-frame {
-                            zoom: 0.75;
-                            -moz-transform: scale(0.75);
-                            -moz-transform-origin: 0 0;
-                            -o-transform: scale(0.75);
-                            -o-transform-origin: 0 0;
-                            -webkit-transform: scale(0.75);
-                            -webkit-transform-origin: 0 0;
-                          }
-                          
-                          @media screen and (-webkit-min-device-pixel-ratio:0) {
-                            #scaled-frame {
-                              zoom: 2;
-                            }
-                          }
-                           </style>
-                           <div id='wrap'>
-                           <iframe id='scaled-frame' style='width: 100%; height: 100%;'>
-                           <?php echo $value->html ?>
-                           </iframe>
-                           </div>
-                           </section>";
-                           <?php } ?>
-                           <?php if ($value->planning == 1 && $value->map == 0) {
-
-                                $listyle = "style='text-align: left;margin: -5px auto;'";
-                                $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
-                                $class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
-                            ?>
-                           
-                                <div class='planning $class offset-0 p-0' $style>
-                                <section style='height: 420px;overflow: hidden;'>
-                                <div class='titre-planning' style='max-height: 50px;text-align: center;'>
-                                <h4 class='fancy' style=' text-transform: uppercase;margin: 10px; font-size: 2.0rem;'>Cette semaine chez
-                                <img style='max-width: 100%; max-height: 85px;' src='images/themanislogo.png'/></h4>
-                                
-                                </div>
-                                <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 70px;'>
-                               <?php
-                                foreach ($DigiFormat as $key => $value) {
-                                    if (!empty($value)) {
-                                        $name = $value['name'] ?? "";
-                                        $instructeur = "";
-                                        foreach ($value['trainingSessionInstructors'] as $another) {
-                                            $firstname = $another['instructor']['firstname'];
-                                            $lastname = $another['instructor']['lastname'];
-                                            $instructeur = $firstname . " " . $lastname;
-
-                                        }
-                                        $startdate = $value['startDate'] ?? "";
-                                        $enddate = $value['endDate'] ?? "";
-                                        if (!empty($instructeur))?>
-                                            <li style='border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'><strong><?php echo $name; ?></strong><?php echo $instructeur; ?></li>
+                                <div <?php echo $style; ?> class='row'>
+                                    <?php
+                                    if ($value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0 && $value->social == 0) { ?>
+                                        <div class="col-11"></div>
                                     <?php
                                     }
-                                }
-                                echo '
+                                    if ($value->news == 1) {
+                                        $style = $value->weather == 1 && $value->planning == 1 ? "style='margin-top: -42px; margin-left: -2vw; '" : "";
+                                        ?>
+                                        <div class="news col-11 offset-0" <?php echo $style; ?>>
+                                            <div id="newsid" class="messagedefilant"></div>
+                                        </div>
+
+                                        <script>
+                                            async function displayRandomNews() {
+                                                var phparray = <?php echo json_encode($News, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
+                                                var newsContainer = document.querySelector(".news");
+                                                function displayNews() {
+                                                    var randomIndex = Math.floor(Math.random() * phparray.articles.length);
+                                                    var newsHTML = "";
+
+                                                    if (phparray.articles[randomIndex].title !== undefined) {
+                                                        newsHTML += `<div class="messagedefilant"><div data-text="${phparray.articles[randomIndex].title}"><span>${phparray.articles[randomIndex].title}</span></div></div>`;
+                                                    }
+
+                                                    newsContainer.innerHTML = newsHTML;
+                                                }
+
+                                                displayNews();
+
+                                                setInterval(displayNews, 8000); // Affiche une nouvelle toutes les 8 secondes
+                                            }
+
+                                            displayRandomNews();
+
+                                        </script>
+                                    <?php } ?>
+
+                                    <?php if ($value->weather == 1) {
+
+                                        $class = $value->news == 0 && $value->map == 0 && $value->planning == 0 ? "col-11" : "col-3";
+                                        $style = $value->news == 1 ? "style='margin-top: 0px; height: 60vh;'" : "style='margin-top: 10px; height: 60vh;'";
+                                        ?>
+                                        <div class='weather <?php echo $class; ?>' <?php echo $style; ?>>
+                                            <div class='custom-box'>
+                                                <img class='icon'
+                                                    src='https://openweathermap.org/img/w/<?php echo $weather->weather[0]->icon; ?>.png'>
+                                                <p class='city'>
+                                                    <?php echo $weather->name ?>
+                                                </p>
+                                                <p class='temperature'>
+                                                    <?php echo round($weather->main->temp); ?> &deg;
+                                                </p>
+                                                <p class='description'>
+                                                    <?php echo $weather->weather[0]->description ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
+                                    <?php if ($value->social == 1 && $value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0) { ?>
+                                        <div class="media">
+                                        <blockquote style="width: 100%;height: 100%;" class='instagram-media' data-instgrm-version='14'>
+
+                                            <a href='https://www.instagram.com/p/Ct1Ac7goxuW/'></a>
+
+                                        </blockquote>
+                                        <script>$('body > div > div.Content.EmbedFrame > div > div > div.fXIG0').click()</script>
+                                        <script src="https://www.instagram.com/embed.js"></script>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+
+
+                                    <?php if ($value->map == 1 && $value->planning == 0) {
+                                        $class = $value->news == 0 && $value->weather == 0 ? "col-11" : "col-8";
+                                        $style = $value->news == 0 ? "width='520px' height='420px'" : "width='420px' height='380px'";
+                                        ?>
+                                        <div class="maps <?php echo $class; ?> offset-1 p-0">
+                                            <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084" <?php echo $style; ?>></iframe>
+                                        </div>
+                                    <?php } ?>
+                                    <?php
+                                    if ($value->customHtml == 1) { ?>
+
+                                        <section class='customHtml col-12 offset-0 p-0'>
+                                            <style>
+                                                #wrap {
+                                                    width: 100%;
+                                                    height: 1500px;
+                                                    padding: 0;
+                                                    overflow: hidden;
+                                                }
+
+                                                #scaled-frame {
+                                                    width: 100%;
+                                                    height: 2000px;
+                                                    border: 0px;
+                                                }
+
+                                                #scaled-frame {
+                                                    zoom: 0.75;
+                                                    -moz-transform: scale(0.75);
+                                                    -moz-transform-origin: 0 0;
+                                                    -o-transform: scale(0.75);
+                                                    -o-transform-origin: 0 0;
+                                                    -webkit-transform: scale(0.75);
+                                                    -webkit-transform-origin: 0 0;
+                                                }
+
+                                                @media screen and (-webkit-min-device-pixel-ratio:0) {
+                                                    #scaled-frame {
+                                                        zoom: 2;
+                                                    }
+                                                }
+                                            </style>
+                                            <div id='wrap'>
+                                                <iframe id='scaled-frame' style='width: 100%; height: 100%;'>
+                                                    <?php echo $value->html ?>
+                                                </iframe>
+                                            </div>
+                                        </section>
+                                    <?php } ?>
+                                    <?php if ($value->planning == 1 && $value->map == 0) {
+
+                                        $listyle = "style='text-align: left;margin: -5px auto;'";
+                                        $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
+                                        $class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
+                                        ?>
+
+                                        <div class='planning <?php echo $class; ?> offset-0 p-0' $style>
+                                            <section style='height: 420px;overflow: hidden;'>
+                                                <div class='titre-planning' style='max-height: 50px;text-align: center;'>
+                                                    <h4 class='fancy'
+                                                        style=' text-transform: uppercase;margin: 0; font-size: 2.0rem;'>Cette
+                                                        semaine chez
+                                                        <img style='max-width: 100%; max-height: 85px;'
+                                                            src='images/themanislogo.png' />
+                                                    </h4>
+
+                                                </div>
+                                                <ul
+                                                    style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 35px;'>
+                                                    <?php
+                                                    foreach ($DigiFormat as $key => $value) {
+                                                        if (!empty($value)) {
+                                                            $name = $value['name'] ?? "";
+                                                            $instructeur = "";
+                                                            foreach ($value['trainingSessionInstructors'] as $another) {
+                                                                $firstname = $another['instructor']['firstname'];
+                                                                $lastname = $another['instructor']['lastname'];
+                                                                $instructeur = $firstname . " " . $lastname;
+
+                                                            }
+                                                            $startdate = $value['startDate'] ?? "";
+                                                            $enddate = $value['endDate'] ?? "";
+                                                            if (!empty($instructeur)) ?>
+                                                            <li
+                                                                style='border-radius: 5px; border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'>
+                                                                <strong>
+                                                                    <?php echo $name; ?>
+                                                                </strong>
+                                                                <?php echo $instructeur; ?>
+                                                            </li>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    echo '
                               </ul>
                                 </section>
                                 </div>
                                 ';
-                            }
-                            echo "
+                                    }
+                                    echo "
                             </div>                 
                             </div>
                             </div>";
@@ -284,10 +320,10 @@ $weather = $requestservice->WeatherApiRequest();
                     $i++;
                 }
                 ?>
-                </div>
+                            </div>
 
-            </div>
-            <!-- End carousel -->
-        </div>
+                        </div>
+                        <!-- End carousel -->
+                    </div>
 </body>
 </html>

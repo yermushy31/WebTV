@@ -50,6 +50,7 @@ if (isset($_POST['_pageId'])) {
         $pageCourante->map = isset($_POST['_pageMap']);
         $pageCourante->planning = isset($_POST['_pagePlanning']);
         $pageCourante->customHtml = isset($_POST['_pageCustomHtml']);
+        $pageCourante->social = isset($_POST['_pageSocial']);
 
         if (isset($_FILES['_pageFile']))
             $pageCourante->imageElements = $_FILES['_pageFile'];
@@ -182,54 +183,60 @@ if (isset($_POST['_pageId'])) {
                         </div>
                         <br>
                         <div>
-                            <label>A Afficher ?</label>
+                            <label>A Afficher</label>
                             <input name="_pageAffiche" type="checkbox" <?php if ($pageCourante?->estAffiche) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Météo ?</label>
+                            <label>Météo</label>
                             <input name="_pageWeather" type="checkbox" <?php if ($pageCourante?->weather) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Maps ?</label>
+                            <label>Maps</label>
                             <input name="_pageMap" type="checkbox" <?php if ($pageCourante?->map) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>News ?</label>
+                            <label>News</label>
                             <input name="_pageNews" type="checkbox" <?php if ($pageCourante?->news) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Planning ?</label>
+                            <label>Planning</label>
                             <input name="_pagePlanning" type="checkbox" <?php if ($pageCourante?->planning) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Custom HTML ?</label>
+                            <label>Custom HTML</label>
                             <input name="_pageCustomHtml" type="checkbox" <?php if ($pageCourante?->customHtml) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
+                            <label>Réseaux Sociaux</label>
+                            <input name="_pageSocial" type="checkbox" <?php if ($pageCourante?->social) {
+                                echo ("checked");
+                            } ?> />
+                        </div>
+                        <br>
+                        <div>
                             <label>Contenue de la page</label>
-                            <textarea name="_pageHtml"
-                                class="form-control transparent-input"><?php echo ($pageCourante?->html); ?>
+                            <textarea name="_pageHtml" class="form-control transparent-input"><?php echo ($pageCourante?->html); ?>
                             </textarea>
                         </div>
-
+                        <br>
                         <div>
                             <label>Image Page</label>
                             <input name="_pageFile" type="file" class="form-control transparent-input" />

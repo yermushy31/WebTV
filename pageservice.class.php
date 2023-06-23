@@ -84,7 +84,7 @@ class PageService
             $page->nomImage = time().".".$ext[1]; 
         }
         $page->nomFichier = time().".html";
-        $model->sql = "INSERT INTO pages (temps, ordre, libpages, est_affiche, libhtml, image, weather, news, map, planning, customHtml) VALUES (:temps, :ordre, :libpages, :est_affiche, :libhtml, :image, :weather, :news, :map, :planning, :customHtml);";
+        $model->sql = "INSERT INTO pages (temps, ordre, libpages, est_affiche, libhtml, image, weather, news, map, planning, customHtml, social) VALUES (:temps, :ordre, :libpages, :est_affiche, :libhtml, :image, :weather, :news, :map, :planning, :customHtml, :social);";
         $model->options = array(
             ':temps' => $page->temps,
             ':ordre' => $page->ordre,
@@ -96,7 +96,8 @@ class PageService
             ':news' => $page->news,
             ':map' => $page->map,
             ':planning' => $page->planning,
-            ':customHtml' => $page->customHtml
+            ':customHtml' => $page->customHtml,
+            ':social' => $page->social
         );
         $page->id = $this->dbservice->executerRequeteInsertion($model);
         $this->write_file($page->html, $page->nomFichier);
@@ -108,7 +109,7 @@ class PageService
     {
         $model = new SqlModel();
         $this->check_order($page);
-        $model->sql = "UPDATE pages SET temps=:temps, ordre=:ordre, libpages=:libpages, est_affiche=:est_affiche, image=:image, weather=:weather, news=:news, map=:map, planning=:planning, customHtml=:customHtml WHERE id_pages=:id";
+        $model->sql = "UPDATE pages SET temps=:temps, ordre=:ordre, libpages=:libpages, est_affiche=:est_affiche, image=:image, weather=:weather, news=:news, map=:map, planning=:planning, customHtml=:customHtml, social=:social WHERE id_pages=:id";
         $model->options = array(
             ':temps' => $page->temps,
             ':ordre' => $page->ordre,
@@ -120,6 +121,7 @@ class PageService
             ':map' => $page->map,
             ':planning' => $page->planning,
             ':customHtml' => $page->customHtml,
+            ':social' => $page->social,
             ':id' => $page->id
         );
         $this->dbservice->executerRequeteMiseaJour($model);
@@ -152,6 +154,7 @@ class PageService
                 $p->map = $value['map'];
                 $p->planning = $value['planning'];
                 $p->customHtml = $value['customHtml'];
+                $p->social = $value['social'];
                 $pages[] = $p;
             }
         }
