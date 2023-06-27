@@ -241,66 +241,88 @@ $weather = $requestservice->WeatherApiRequest();
                                     <?php } ?>
                                     <?php if ($value->planning == 1 && $value->map == 0) {
 
-                                        $listyle = "style='text-align: left;margin: -5px auto;'";
-                                        $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px;'";
-                                        $class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
-                                        ?>
+$listyle = "style='text-align: left;margin: -5px auto;'";
+$style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px; overflow: hidden;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px; overflow: hidden;'";
+$class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
+?>
 
-                                        <div class='planning <?php echo $class; ?> offset-0 p-0' $style>
-                                            <section style='height: 420px;overflow: hidden;'>
-                                                <div class='titre-planning' style='max-height: 50px;text-align: center;'>
-                                                    <h4 class='fancy'
-                                                        style=' text-transform: uppercase;margin: 0; font-size: 2.0rem;'>Cette
-                                                        semaine chez
-                                                        <img style='max-width: 100%; max-height: 85px;'
-                                                            src='images/themanislogo.png' />
-                                                    </h4>
+<div class='planning <?php echo $class; ?> offset-0 p-0' <?php echo $style; ?>>
+    <section style='height: 420px;overflow: hidden;'>
+        <div class='titre-planning' style='max-height: 86px;text-align: center;overflow: hidden;'>
+            <h4 class='fancy' style='text-transform: uppercase;margin: 0; font-size: 2.0rem;'>
+                Cette semaine chez
+                <img style='max-width: 100%; max-height: 85px;object-fit: cover;' src='images/themanislogo.png' />
+            </h4>
+        </div>
+        <div class='scroll-container' style='height: 370px;overflow: hidden;'>
+            <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 35px;' class='scrollable-content'>
+                <?php
+                foreach ($DigiFormat as $key => $innerValue) {
+                    if (!empty($innerValue)) {
+                        $name = $innerValue['name'] ?? "";
+                        $instructeur = "";
+                        foreach ($innerValue['trainingSessionInstructors'] as $another) {
+                            $firstname = $another['instructor']['firstname'];
+                            $lastname = $another['instructor']['lastname'];
+                            $instructeur = $firstname . " " . $lastname;
+                        }
+                        $startdate = $innerValue['startDate'] ?? "";
+                        $enddate = $innerValue['endDate'] ?? "";
+                        if (!empty($instructeur)) { ?>
+                            <li style='border-radius: 5px; border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'>
+                                <strong><?php echo $name; ?></strong>
+                                <?php echo $instructeur; ?>
+                            </li>
+                        <?php
+                        }
+                    }
+                } ?>
+            </ul>
+        </div>
+    </section>
+</div>
 
-                                                </div>
-                                                <ul
-                                                    style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 35px;'>
-                                                    <?php
-                                                    foreach ($DigiFormat as $key => $value) {
-                                                        if (!empty($value)) {
-                                                            $name = $value['name'] ?? "";
-                                                            $instructeur = "";
-                                                            foreach ($value['trainingSessionInstructors'] as $another) {
-                                                                $firstname = $another['instructor']['firstname'];
-                                                                $lastname = $another['instructor']['lastname'];
-                                                                $instructeur = $firstname . " " . $lastname;
+<style>
+    .scrollable-content {
+        animation: scrollAnimation 25s linear infinite;
+    }
 
-                                                            }
-                                                            $startdate = $value['startDate'] ?? "";
-                                                            $enddate = $value['endDate'] ?? "";
-                                                            if (!empty($instructeur)) ?>
-                                                            <li
-                                                                style='border-radius: 5px; border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'>
-                                                                <strong>
-                                                                    <?php echo $name; ?>
-                                                                </strong>
-                                                                <?php echo $instructeur; ?>
-                                                            </li>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    echo '
-                              </ul>
-                                </section>
+    .scroll-container {
+        overflow: hidden;
+    }
+
+    .titre-planning {
+        overflow: hidden;
+        max-height: 50px;
+    }
+
+    .titre-planning img {
+        max-width: 100%;
+        max-height: 85px;
+        object-fit: cover;
+    }
+
+    @keyframes scrollAnimation {
+        0% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(-100%);
+        }
+    }
+</style>
+<?php } ?>
+                                    </div>                 
                                 </div>
-                                ';
-                                    }
-                                    echo "
-                            </div>                 
                             </div>
-                            </div>";
+                        <?php
                     }
                     $i++;
                 }
                 ?>
-                            </div>
-
-                        </div>
-                        <!-- End carousel -->
-                    </div>
+                </div>
+            </div>
+    </div>
 </body>
 </html>

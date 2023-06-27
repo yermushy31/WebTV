@@ -84,54 +84,7 @@ if (isset($_POST['_pageId'])) {
 </head>
 
 
-<style>
-    .custom-box {
-        margin-top: 0%;
-        padding: 40px;
-        background: rgba(0, 0, 0, 0);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(4.8px);
-        border: 1px solid rgba(0, 0, 0, 0.33);
-    }
 
-    .header {
-        padding: 30px;
-        background-color: black;
-
-    }
-
-    label {
-        font-size: 20px;
-        font-weight: 700;
-        background: linear-gradient(to left, #00CF91 20%, #3055CF 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    input.transparent-input {
-        background-color: rgba(0, 0, 0, 0.4);
-        border: none !important;
-    }
-
-    textarea.transparent-input {
-        background-color: rgba(0, 0, 0, 0.4);
-        border: none !important;
-    }
-
-    .title {
-        font-size: 80px;
-        background: #3055CF;
-        background: linear-gradient(to left, #3055CF 20%, #00CF91 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .form-select {
-        width: 170px;
-    }
-</style>
 
 <body>
     <section class="bg-image" style="background-image: url('https://images.alphacoders.com/111/1112602.jpg');

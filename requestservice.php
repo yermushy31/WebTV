@@ -34,13 +34,13 @@ class RequestService
                     $currentDate = new DateTime();
                     $startDateSession = new DateTime($value['startDate'] ?? "");
                     $endDateSession = new DateTime($value['endDate'] ?? "");
-                 //StackOverflow
+            
                     $startDateWeek = clone $currentDate;
                     $startDateWeek->modify('this week')->setTime(0, 0, 0);
                     $endDateWeek = clone $startDateWeek;
                     $endDateWeek->modify('+7 days')->setTime(23, 59, 59);
 
-                    if ($startDateSession >= $startDateWeek && $endDateSession <= $endDateWeek) {
+                    if ($startDateSession >= $startDateWeek && $endDateSession <= $endDateWeek && $startDateSession != "" && $endDateSession != "") {
                         $sessions[] = $value;
                     }
                 }
