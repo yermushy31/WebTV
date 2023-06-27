@@ -30,7 +30,8 @@ class RequestService
         $sessions[] = array();
         if (!empty($response)) {
             foreach ($response['data']['trainingSessions'] as $value) {
-                if ($value['pipelineState'] == "ongoing" && $value['trainingType'] == "Action de formation") {
+                // if ($value['pipelineState'] == "ongoing" && $value['trainingType'] == "Action de formation") {
+                if ($value['pipelineState'] == "ongoing") {
                     $currentDate = new DateTime();
                     $startDateSession = new DateTime($value['startDate'] ?? "");
                     $endDateSession = new DateTime($value['endDate'] ?? "");
