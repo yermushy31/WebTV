@@ -58,7 +58,6 @@
 
 .media {
 	overflow: hidden;
-	margin-left: 34%;
 	max-height: 420px;
 	background: rgba(0, 0, 0, 0);
 	border-radius: 16px;
@@ -67,6 +66,8 @@
 	-webkit-backdrop-filter: blur(4.8px);
 	border: 2px solid rgba(0, 0, 0, 0.33);
 }
+
+
 
 .planning {
 	overflow: hidden;

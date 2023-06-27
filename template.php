@@ -199,15 +199,21 @@ $weather = $requestservice->WeatherApiRequest();
                                     <?php } ?>
 
                                     <?php if ($value->social == 1 && $value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0) { ?>
-                                        <div class="media">
+                                        <section style="columns: 2;">
+                                        <div class="media" style="margin-left: 0;width: 100%;height: 100%;">
+                                        <iframe style="width: 100%;height: 100%;" src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7077950223670464512"></iframe>
+                                        </div>
+                                        
+                                        <div class="media" style="margin-left: 73%;width: 100%;height: 100%;">
+                                        
                                         <blockquote style="width: 100%;height: 100%;" class='instagram-media' data-instgrm-version='14'>
 
-                                            <a href='https://www.instagram.com/p/Ct1Ac7goxuW/'></a>
+                                            <a href='https://www.instagram.com/p/CqDZ2yUDQpe/embed/'></a>
 
                                         </blockquote>
-                                        <script>$('body > div > div.Content.EmbedFrame > div > div > div.fXIG0').click()</script>
                                         <script src="https://www.instagram.com/embed.js"></script>
                                         </div>
+                                        </section>
                                         <?php
                                     }
                                     ?>
@@ -225,41 +231,12 @@ $weather = $requestservice->WeatherApiRequest();
                                     if ($value->customHtml == 1) { ?>
 
                                         <section class='customHtml col-12 offset-0 p-0'>
-                                            <style>
-                                                #wrap {
-                                                    width: 100%;
-                                                    height: 1500px;
-                                                    padding: 0;
-                                                    overflow: hidden;
-                                                }
-
-                                                #scaled-frame {
-                                                    width: 100%;
-                                                    height: 2000px;
-                                                    border: 0px;
-                                                }
-
-                                                #scaled-frame {
-                                                    zoom: 0.75;
-                                                    -moz-transform: scale(0.75);
-                                                    -moz-transform-origin: 0 0;
-                                                    -o-transform: scale(0.75);
-                                                    -o-transform-origin: 0 0;
-                                                    -webkit-transform: scale(0.75);
-                                                    -webkit-transform-origin: 0 0;
-                                                }
-
-                                                @media screen and (-webkit-min-device-pixel-ratio:0) {
-                                                    #scaled-frame {
-                                                        zoom: 2;
-                                                    }
-                                                }
-                                            </style>
-                                            <div id='wrap'>
-                                                <iframe id='scaled-frame' style='width: 100%; height: 100%;'>
+                                            
+                                            
+                                                <iframe  style='width: 100%; height: 100%;'>
                                                     <?php echo $value->html ?>
                                                 </iframe>
-                                            </div>
+                                            
                                         </section>
                                     <?php } ?>
                                     <?php if ($value->planning == 1 && $value->map == 0) {
