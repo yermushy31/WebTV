@@ -5,3 +5,29 @@ html, body {
     scroll-behavior: smooth;
 }
 
+label {
+    color:azure;
+    font-size: 600;
+    font-weight: bolder;
+}
+
+.container-lg {
+    margin: 0;
+}
+.custom-box {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(2.8px);
+	-webkit-backdrop-filter: blur(4.8px);
+    border: 2px solid rgba(0, 0, 0, 0.33);
+}
+
+@media screen and (min-width: 900px) {
+   .container-lg {
+    margin: 10px;
+    margin-left: 20%;
+    margin-right: auto;
+   }
+  }

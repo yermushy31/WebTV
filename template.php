@@ -21,6 +21,7 @@ $service = new PageService($dbservice);
 $pages = $service->Lister();
 
 $News = $requestservice->NewsApiRequest();
+
 foreach ($pages as $value) {
     if ($value->planning == 1) {
 
@@ -47,7 +48,7 @@ foreach ($pages as $value) {
   }";
 
         $requestmodel->token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIxNiwibW9kZSI6ImFwaSIsInR5cGUiOiJ1c2VyIiwiZXhwIjoxOTAwNjI3MjAwLCJpc3MiOiJEaWdpZm9ybWEifQ.bmYKNHSSKa65Z8DGyyEDD9bPUiYjx5UnpwlEqnxy1kQ";
-        $DigiFormat = $requestservice->DigiFormatRequest();
+       $DigiFormat = $requestservice->DigiFormatRequest();
     }
 }
 
@@ -57,7 +58,6 @@ $requestmodel->url = "https://api.openweathermap.org/data/2.5/weather?id=2972315
 
 $weather = $requestservice->WeatherApiRequest();
 
-
 ?>
 
 <!doctype html>
@@ -66,7 +66,7 @@ $weather = $requestservice->WeatherApiRequest();
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="120">
+    <meta http-equiv="refresh" content="160">
     <!-- <meta http-equiv="refresh" content="2"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
     <!-- Bootstrap CSS -->
@@ -147,13 +147,14 @@ $weather = $requestservice->WeatherApiRequest();
                                     if ($value->news == 1) {
                                         $style = $value->weather == 1 && $value->planning == 1 ? "style='margin-top: -42px; margin-left: -2vw; '" : "";
                                         ?>
-                                        <div class="news col-11 offset-0" <?php echo $style; ?>>
+                                        <div class="news col-12 offset-0" <?php echo $style; ?>>
                                             <div id="newsid" class="messagedefilant"></div>
                                         </div>
 
                                         <script>
                                             async function displayRandomNews() {
-                                                var phparray = <?php echo json_encode($News, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
+                                                var phparray = <?php echo json_encode($News, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
+                                                console.log(phparray);
                                                 var newsContainer = document.querySelector(".news");
                                                 function displayNews() {
                                                     var randomIndex = Math.floor(Math.random() * phparray.articles.length);
@@ -199,13 +200,39 @@ $weather = $requestservice->WeatherApiRequest();
                                     <?php } ?>
 
                                     <?php if ($value->social == 1 && $value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0) { ?>
-                                        <section style="columns: 2;">
-                                        <div class="media" style="margin-left: 0;width: 100%;height: 100%;">
+                                        <section style="columns: 3;">
+                                        <div class="media" style="margin-left: 0;width: 80%;height: 100%;">
                                         <iframe style="width: 100%;height: 100%;" src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7077950223670464512"></iframe>
                                         </div>
-                                        
-                                        <div class="media" style="margin-left: 73%;width: 100%;height: 100%;">
-                                        
+                                        <style>
+    .social-media {
+        overflow: hidden;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(2.8px);
+	-webkit-backdrop-filter: blur(4.8px);
+	border: 1px solid rgba(0, 0, 0, 0.33);
+    }
+    .insta-logo {
+        
+        max-height: 70px;
+    }
+    .linkedin-logo {
+        margin-left: -6px;
+        max-height: 88px;
+    }
+    
+</style>
+
+    <div class="social-media col-9">
+      <h2>Suivez-nous sur les réseaux</h2>
+      <p><img class="insta-logo" src="images/logo-instagram.jpg">@themanis31670</p>
+      <p style="margin-left: -40px;"><img class="linkedin-logo" src="images/linkedin.webp">THEMANIS</p>
+    </div>
+                                                
+                                        <div class="media" style="margin-left: -16%;width: 80%;height: 100%;">
                                         <blockquote style="width: 100%;height: 100%;" class='instagram-media' data-instgrm-version='14'>
 
                                             <a href='https://www.instagram.com/p/CqDZ2yUDQpe/embed/'></a>
@@ -221,7 +248,7 @@ $weather = $requestservice->WeatherApiRequest();
 
                                     <?php if ($value->map == 1 && $value->planning == 0) {
                                         $class = $value->news == 0 && $value->weather == 0 ? "col-11" : "col-8";
-                                        $style = $value->news == 0 ? "width='520px' height='420px'" : "width='420px' height='380px'";
+                                        $style = $value->news == 0 ? "width='520px' height='420px'" : "width='520px' height='380px'";
                                         ?>
                                         <div class="maps <?php echo $class; ?> offset-1 p-0">
                                             <iframe src="https://embed.waze.com/fr/iframe?zoom=11&lat=43.60154&lon=1.44084" <?php echo $style; ?>></iframe>
@@ -257,26 +284,39 @@ $class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12
         <div class='scroll-container' style='height: 370px;overflow: hidden;'>
             <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 35px;' class='scrollable-content'>
                 <?php
+                $uniqueNames = array(); 
+
                 foreach ($DigiFormat as $key => $innerValue) {
                     if (!empty($innerValue)) {
                         $name = $innerValue['name'] ?? "";
                         $instructeur = "";
+                        
                         foreach ($innerValue['trainingSessionInstructors'] as $another) {
                             $firstname = $another['instructor']['firstname'];
                             $lastname = $another['instructor']['lastname'];
                             $instructeur = $firstname . " " . $lastname;
                         }
+                        
                         $startdate = $innerValue['startDate'] ?? "";
                         $enddate = $innerValue['endDate'] ?? "";
-                        if (!empty($instructeur)) { ?>
+                        
+                        $nameKey = strtolower(trim($name)); 
+                        
+                        if (!empty($instructeur) && !isset($uniqueNames[$nameKey])) {
+                            $uniqueNames[$nameKey] = true; 
+                            
+                            ?>
                             <li style='border-radius: 5px; border: 2px solid lightblue; list-style: none; text-align: center;color:black;padding: 5px; margin:5px;'>
                                 <strong><?php echo $name; ?></strong>
                                 <?php echo $instructeur; ?>
                             </li>
-                        <?php
+                            <?php
                         }
                     }
-                } ?>
+                }
+                
+                
+                ?>
             </ul>
         </div>
     </section>

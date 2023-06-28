@@ -28,6 +28,7 @@ class RequestService
         $response = json_decode(curl_exec($ch), true);
         curl_close($ch);
         $sessions[] = array();
+       
         if (!empty($response)) {
             foreach ($response['data']['trainingSessions'] as $value) {
                 // if ($value['pipelineState'] == "ongoing" && $value['trainingType'] == "Action de formation") {
@@ -42,7 +43,9 @@ class RequestService
                     $endDateWeek->modify('+7 days')->setTime(23, 59, 59);
 
                     if ($startDateSession >= $startDateWeek && $endDateSession <= $endDateWeek && $startDateSession != "" && $endDateSession != "") {
-                        $sessions[] = $value;
+                       
+                                 $sessions[] = $value;
+                                    
                     }
                 }
             }

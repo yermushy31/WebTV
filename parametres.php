@@ -79,11 +79,10 @@ if (isset($_POST['_pageId'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Paramètres webtv</title>
     <script src="script/parametres.js"></script>
 </head>
-
-
 
 
 <body>
@@ -92,8 +91,8 @@ if (isset($_POST['_pageId'])) {
             background-size: cover;
             background-repeat: no-repeat;">
 
-        <header class="header">
-            <div class="text-center">
+        <header class="header" style="background-color: black;">
+            <div class="text-center" style="background: linear-gradient(to right, #121FCF 0%, #00CF83 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;padding: 40px;">
                 <h1 class="title">Paramètres Pages</h1>
             </div>
         </header>
@@ -136,62 +135,62 @@ if (isset($_POST['_pageId'])) {
                         </div>
                         <br>
                         <div>
-                            <label>A Afficher</label>
+                            <label>A Afficher :</label>
                             <input name="_pageAffiche" type="checkbox" <?php if ($pageCourante?->estAffiche) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Météo</label>
+                            <label>Météo :</label>
                             <input name="_pageWeather" type="checkbox" <?php if ($pageCourante?->weather) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Maps</label>
+                            <label>Maps :</label>
                             <input name="_pageMap" type="checkbox" <?php if ($pageCourante?->map) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>News</label>
+                            <label>News :</label>
                             <input name="_pageNews" type="checkbox" <?php if ($pageCourante?->news) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Planning</label>
+                            <label>Planning :</label>
                             <input name="_pagePlanning" type="checkbox" <?php if ($pageCourante?->planning) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Custom HTML</label>
+                            <label>Custom HTML :</label>
                             <input name="_pageCustomHtml" type="checkbox" <?php if ($pageCourante?->customHtml) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Réseaux Sociaux</label>
+                            <label>Réseaux Sociaux :</label>
                             <input name="_pageSocial" type="checkbox" <?php if ($pageCourante?->social) {
                                 echo ("checked");
                             } ?> />
                         </div>
                         <br>
                         <div>
-                            <label>Contenue de la page</label>
+                            <label>Contenu HTML de la page :</label>
                             <textarea name="_pageHtml" class="form-control transparent-input"><?php echo ($pageCourante?->html); ?>
                             </textarea>
                         </div>
                         <br>
                         <div>
-                            <label>Image Page</label>
+                            <label>Image Page :</label>
                             <input name="_pageFile" type="file" class="form-control transparent-input" />
                         </div>
                     </div>
@@ -200,10 +199,17 @@ if (isset($_POST['_pageId'])) {
                         <?php if ($pageCourante == null) { ?>
                             <button type='submit' name="_pageAjouter" class="btn btn-primary">Ajouter</button>
                         <?php } else { ?>
-                            <button type='submit' name="_pageEnregister" class="btn btn-primary">Enregistrer</button>
+                            <button type='submit' id="saveButton" name="_pageEnregister" class="btn btn-primary">Enregistrer</button>
                             <button type='submit' onclick="return confirmerSuppression()" name="_pageSupprimer"
                                 class="btn btn-primary">Supprimer</button>
                         <?php } ?>
+
+                    </div>
+                    <br>
+                    <label>Apercu de la Page :</label>
+                    <br>
+                    <div style="margin-left: 10%;">   
+                    <iframe id="template-preview" src="template.php" width="970" height="550" style="border-radius: 10px;"></iframe>
 
                     </div>
             </div>
