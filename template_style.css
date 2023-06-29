@@ -77,7 +77,7 @@
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 	backdrop-filter: blur(2.8px);
 	-webkit-backdrop-filter: blur(4.8px);
-	border: 0.3rem solid #1b667b;
+	border: 0.3rem solid #4D8697;
 
 }
 
@@ -100,7 +100,24 @@
 	max-height: 85px;
 	object-fit: cover;
 }
-
+.social-media {
+	overflow: hidden;
+	padding: 10px;
+	background: rgba(0, 0, 0, 0);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+backdrop-filter: blur(2.8px);
+-webkit-backdrop-filter: blur(4.8px);
+border: 1px solid rgba(0, 0, 0, 0.33);
+}
+.insta-logo {
+	
+	max-height: 70px;
+}
+.linkedin-logo {
+	margin-left: -6px;
+	max-height: 88px;
+}
 @keyframes scrollAnimation {
 	            0% {
                 transform: translateY(0);
@@ -118,18 +135,16 @@
 
 .fancy {
 	font-family: 'Work Sans', sans-serif;
-	background-image: url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%2300A080' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%2300FDCF'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%2300FDCF'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23008060'/%3E%3C/g%3E%3C/svg%3E%0A");
-	background-size: 110% auto;
-	background-position: center;
-	color: transparent;
-	-webkit-background-clip: text;
-	background-clip: text;
+	background: #4D8697;
+background: linear-gradient(to right, #4D8697 0%, #bab8b6 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
   }
 
 .customHtml {
     overflow: hidden;
 	max-height: 420px;
-	background: rgb(255, 255, 255);
+	background: #4D8697;
 	border-radius: 16px;
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 	backdrop-filter: blur(2.8px);

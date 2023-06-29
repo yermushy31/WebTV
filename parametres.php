@@ -2,7 +2,7 @@
 
 require_once "pageservice.class.php";
 require_once "requestservice.php";
-
+error_reporting(0);
 $requestmodel = new RequestModel();
 $requestmodel->curl = curl_init();
 $requestmodel->url = 'https://app.digiforma.com/api/v1/graphiql';
@@ -82,8 +82,13 @@ if (isset($_POST['_pageId'])) {
     <link rel="stylesheet" href="style.css">
     <title>Paramètres webtv</title>
     <script src="script/parametres.js"></script>
+    <style>
+        .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+            background-color: #00CF83;
+            border-color: #00CF83;
+        }
+    </style>
 </head>
-
 
 <body>
     <section class="bg-image" style="background-image: url('https://images.alphacoders.com/111/1112602.jpg');
@@ -96,8 +101,14 @@ if (isset($_POST['_pageId'])) {
                 <h1 class="title">Paramètres Pages</h1>
             </div>
         </header>
+        
         <div class="container-lg">
             <div class="custom-box">
+                    <br>
+                    <div style="margin-left: 10%;">
+                        <iframe id="template-preview" src="template.php" width="970" height="550" style="border-radius: 10px;"></iframe>
+
+                    </div>
                 <form method="post" id="form_pages">
                     <select name="_pageId" class="form-select"
                         onchange="document.getElementById('form_pages').submit()">
@@ -134,53 +145,60 @@ if (isset($_POST['_pageId'])) {
                                 value="<?php echo ($pageCourante?->temps); ?>" />
                         </div>
                         <br>
-                        <div>
-                            <label>A Afficher :</label>
-                            <input name="_pageAffiche" type="checkbox" <?php if ($pageCourante?->estAffiche) {
-                                echo ("checked");
-                            } ?> />
+                        <div class="form-check form-switch">
+                            <input name="_pageAffiche" class="form-check-input" type="checkbox" id="pageAffiche"
+                                <?php if ($pageCourante?->estAffiche) {
+                                    echo ("checked");
+                                } ?>>
+                            <label class="form-check-label" for="pageAffiche">A Afficher</label>
                         </div>
                         <br>
-                        <div>
-                            <label>Météo :</label>
-                            <input name="_pageWeather" type="checkbox" <?php if ($pageCourante?->weather) {
-                                echo ("checked");
-                            } ?> />
+                        <div class="form-check form-switch">
+                            <input name="_pageWeather" class="form-check-input" type="checkbox" id="pageWeather"
+                                <?php if ($pageCourante?->weather) {
+                                    echo ("checked");
+                                } ?>>
+                            <label class="form-check-label" for="pageWeather">Météo</label>
                         </div>
                         <br>
-                        <div>
-                            <label>Maps :</label>
-                            <input name="_pageMap" type="checkbox" <?php if ($pageCourante?->map) {
-                                echo ("checked");
-                            } ?> />
+                        <div class="form-check form-switch">
+                            <input name="_pageMap" class="form-check-input" type="checkbox" id="pageMap"
+                                <?php if ($pageCourante?->map) {
+                                    echo ("checked");
+                                } ?>>
+                            <label class="form-check-label" for="pageMap">Maps</label>
                         </div>
                         <br>
-                        <div>
-                            <label>News :</label>
-                            <input name="_pageNews" type="checkbox" <?php if ($pageCourante?->news) {
-                                echo ("checked");
-                            } ?> />
+                        <div class="form-check form-switch">
+                            <input name="_pageNews" class="form-check-input" type="checkbox" id="pageNews"
+                                <?php if ($pageCourante?->news) {
+                                    echo ("checked");
+                                } ?>>
+                            <label class="form-check-label" for="pageNews">News</label>
                         </div>
                         <br>
-                        <div>
-                            <label>Planning :</label>
-                            <input name="_pagePlanning" type="checkbox" <?php if ($pageCourante?->planning) {
-                                echo ("checked");
-                            } ?> />
+                        <div class="form-check form-switch">
+                            <input name="_pagePlanning" class="form-check-input" type="checkbox" id="pagePlanning"
+                                <?php if ($pageCourante?->planning) {
+                                    echo ("checked");
+                                } ?>>
+                            <label class="form-check-label" for="pagePlanning">Planning</label>
                         </div>
                         <br>
-                        <div>
-                            <label>Custom HTML :</label>
-                            <input name="_pageCustomHtml" type="checkbox" <?php if ($pageCourante?->customHtml) {
-                                echo ("checked");
-                            } ?> />
+                        <div class="form-check form-switch">
+                            <input name="_pageCustomHtml" class="form-check-input" type="checkbox"
+                                id="pageCustomHtml" <?php if ($pageCourante?->customHtml) {
+                                    echo ("checked");
+                                } ?>>
+                            <label class="form-check-label" for="pageCustomHtml">Custom HTML</label>
                         </div>
                         <br>
-                        <div>
-                            <label>Réseaux Sociaux :</label>
-                            <input name="_pageSocial" type="checkbox" <?php if ($pageCourante?->social) {
-                                echo ("checked");
-                            } ?> />
+                        <div class="form-check form-switch">
+                            <input name="_pageSocial" class="form-check-input" type="checkbox" id="pageSocial"
+                                <?php if ($pageCourante?->social) {
+                                    echo ("checked");
+                                } ?>>
+                            <label class="form-check-label" for="pageSocial">Réseaux Sociaux</label>
                         </div>
                         <br>
                         <div>
@@ -205,16 +223,8 @@ if (isset($_POST['_pageId'])) {
                         <?php } ?>
 
                     </div>
-                    <br>
-                    <label>Apercu de la Page :</label>
-                    <br>
-                    <div style="margin-left: 10%;">   
-                    <iframe id="template-preview" src="template.php" width="970" height="550" style="border-radius: 10px;"></iframe>
-
-                    </div>
+                </form>
             </div>
-            </form>
-        </div>
         </div>
     </section>
 </body>

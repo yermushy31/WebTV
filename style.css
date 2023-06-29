@@ -24,6 +24,9 @@ label {
     border: 2px solid rgba(0, 0, 0, 0.33);
 }
 
+
+
+
 @media screen and (min-width: 900px) {
    .container-lg {
     margin: 10px;

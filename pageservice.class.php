@@ -78,7 +78,7 @@ class PageService
     {
         $model = new SqlModel();
         $this->check_order($page);
-
+        $page->imageElements['name'] = "default.jpg";
         $ext = explode(".", strtolower($page->imageElements['name']));
         if(!empty($ext)) {
             $page->nomImage = time().".".$ext[1]; 

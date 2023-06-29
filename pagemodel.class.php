@@ -3,7 +3,7 @@
 class PageModel {
     //model
     public int $id;
-    public ?int $ordre;
+    public ?int $ordre = 0;
     public ?string $nom ;
     public ?int $temps;
     public ?string $nomFichier;

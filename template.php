@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 require_once "pageservice.class.php";
 require_once "requestservice.php";
 
@@ -66,7 +66,7 @@ $weather = $requestservice->WeatherApiRequest();
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="160">
+    <meta http-equiv="refresh" content="20">
     <!-- <meta http-equiv="refresh" content="2"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
     <!-- Bootstrap CSS -->
@@ -204,33 +204,12 @@ $weather = $requestservice->WeatherApiRequest();
                                         <div class="media" style="margin-left: 0;width: 80%;height: 100%;">
                                         <iframe style="width: 100%;height: 100%;" src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7077950223670464512"></iframe>
                                         </div>
-                                        <style>
-    .social-media {
-        overflow: hidden;
-        padding: 10px;
-        background: rgba(0, 0, 0, 0);
-	border-radius: 16px;
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-	backdrop-filter: blur(2.8px);
-	-webkit-backdrop-filter: blur(4.8px);
-	border: 1px solid rgba(0, 0, 0, 0.33);
-    }
-    .insta-logo {
-        
-        max-height: 70px;
-    }
-    .linkedin-logo {
-        margin-left: -6px;
-        max-height: 88px;
-    }
-    
-</style>
 
-    <div class="social-media col-9">
-      <h2>Suivez-nous sur les réseaux</h2>
-      <p><img class="insta-logo" src="images/logo-instagram.jpg">@themanis31670</p>
-      <p style="margin-left: -40px;"><img class="linkedin-logo" src="images/linkedin.webp">THEMANIS</p>
-    </div>
+                                        <div class="social-media col-9" style="margin-left: -6%;">
+                                        <h2>Suivez-nous sur les réseaux</h2>
+                                        <p><img class="insta-logo" src="images/logo-instagram.jpg">@themanis31670</p>
+                                         <p style="margin-left: -40px;"><img class="linkedin-logo" src="images/linkedin.webp">THEMANIS</p>
+                                        </div>
                                                 
                                         <div class="media" style="margin-left: -16%;width: 80%;height: 100%;">
                                         <blockquote style="width: 100%;height: 100%;" class='instagram-media' data-instgrm-version='14'>
@@ -268,20 +247,21 @@ $weather = $requestservice->WeatherApiRequest();
                                     <?php } ?>
                                     <?php if ($value->planning == 1 && $value->map == 0) {
 
-$listyle = "style='text-align: left;margin: -5px auto;'";
-$style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px; overflow: hidden;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px; overflow: hidden;'";
-$class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
-?>
+                                        $listyle = "style='text-align: left;margin: -5px auto;'";
+                                        $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px; overflow: hidden;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px; overflow: hidden;'";
+                                        $class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
+                                    ?>
 
-<div class='planning <?php echo $class; ?> offset-0 p-0' <?php echo $style; ?>>
-    <section style='height: 420px;overflow: hidden;'>
-        <div class='titre-planning' style='max-height: 86px;text-align: center;overflow: hidden;'>
-            <h4 class='fancy' style='text-transform: uppercase;margin: 0; font-size: 2.0rem;'>
-                Cette semaine chez
-                <img style='max-width: 100%; max-height: 85px;object-fit: cover;' src='images/themanislogo.png' />
-            </h4>
-        </div>
-        <div class='scroll-container' style='height: 370px;overflow: hidden;'>
+                                    <div class='planning <?php echo $class; ?> offset-0 p-0' <?php echo $style; ?>>
+                                        <section style='height: 420px;overflow: hidden;'>
+                                             <div class='titre-planning' style='max-height: 86px;text-align: center;overflow: hidden;'>
+                                             <h4 class='fancy' style='text-transform: uppercase;margin: 0; font-size: 2.0rem;'>
+                                                Cette semaine chez
+                                                <img style='max-width: 100%; max-height: 85px;object-fit: cover;' src='images/themanislogo.png' />
+                                            </h4>
+                                    </div>
+
+            <div class='scroll-container' style='height: 370px;overflow: hidden;'>
             <ul style='list-style: none; text-align: left;margin: 0;padding: 0;columns: 2;margin-top: 35px;' class='scrollable-content'>
                 <?php
                 $uniqueNames = array(); 
