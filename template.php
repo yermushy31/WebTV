@@ -202,7 +202,7 @@ $weather = $requestservice->WeatherApiRequest();
                                     <?php if ($value->social == 1 && $value->news == 0 && $value->planning == 0 && $value->weather == 0 && $value->map == 0 && $value->customHtml == 0) { ?>
                                         <section style="columns: 3;">
                                         <div class="media" style="margin-left: 0;width: 80%;height: 100%;">
-                                        <iframe style="width: 100%;height: 100%;" src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7077950223670464512"></iframe>
+                                        <iframe style="width: 100%;height: 100%; overflow: hidden;" scrolling="no" src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7077950223670464512"></iframe>
                                         </div>
 
                                         <div class="social-media col-9" style="margin-left: -6%;">
@@ -248,7 +248,7 @@ $weather = $requestservice->WeatherApiRequest();
                                     <?php if ($value->planning == 1 && $value->map == 0) {
 
                                         $listyle = "style='text-align: left;margin: -5px auto;'";
-                                        $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -59px; overflow: hidden;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px; overflow: hidden;'";
+                                        $style = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "style='max-height: 500px; margin-top: -52px; overflow: hidden;'" : "style='margin-left: 10px; max-height: 420px; margin-top: -37px; overflow: hidden;'";
                                         $class = $value->news == 0 && $value->map == 0 && $value->weather == 0 ? "col-12" : "col-8";
                                     ?>
 
