@@ -7,7 +7,7 @@ $requestmodel = new RequestModel();
 $requestmodel->curl = curl_init();
 $requestmodel->url = 'https://app.digiforma.com/api/v1/graphiql';
 $requestmodel->query = '{trainingSessions{trainingSessionInstructors{instructor{lastname,firstname}},placeInfo{city}}}';
-$requestmodel->token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIxNiwibW9kZSI6ImFwaSIsInR5cGUiOiJ1c2VyIiwiZXhwIjoxOTAwNjI3MjAwLCJpc3MiOiJEaWdpZm9ybWEifQ.bmYKNHSSKa65Z8DGyyEDD9bPUiYjx5UnpwlEqnxy1kQ";
+$requestmodel->token = "";
 
 $requestservice = new RequestService($requestmodel);
 
