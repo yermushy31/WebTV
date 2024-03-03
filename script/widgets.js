@@ -24,8 +24,8 @@ class Widgets {
 
 async function main() {
     const keys = {
-        weatherApi: "947c00c93252788bf42802507b3aab97",
-        newsApi: "6f70fc1752ef4fd6b2ad0e3589a84236"
+        weatherApi: "",
+        newsApi: ""
 
     }
     const infos = {
