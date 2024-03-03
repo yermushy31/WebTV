@@ -47,13 +47,13 @@ foreach ($pages as $value) {
     }
   }";
 
-        $requestmodel->token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIxNiwibW9kZSI6ImFwaSIsInR5cGUiOiJ1c2VyIiwiZXhwIjoxOTAwNjI3MjAwLCJpc3MiOiJEaWdpZm9ybWEifQ.bmYKNHSSKa65Z8DGyyEDD9bPUiYjx5UnpwlEqnxy1kQ";
+        $requestmodel->token = "";
        $DigiFormat = $requestservice->DigiFormatRequest();
     }
 }
 
 
-$requestmodel->token = "947c00c93252788bf42802507b3aab97";
+$requestmodel->token = "";
 $requestmodel->url = "https://api.openweathermap.org/data/2.5/weather?id=2972315&lang=fr&units=metric&APPID=" . $requestmodel->token;
 
 $weather = $requestservice->WeatherApiRequest();
