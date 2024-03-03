@@ -5,7 +5,7 @@ require_once "requestservice.php";
 
 $requestmodel = new RequestModel();
 $requestmodel->curl = curl_init();
-$requestmodel->url = "https://newsapi.org/v2/top-headlines?q=France&country=fr&language=fr&pageSize=15&apiKey=6f70fc1752ef4fd6b2ad0e3589a84236";
+$requestmodel->url = "https://newsapi.org/v2/top-headlines?q=France&country=fr&language=fr&pageSize=15&apiKey=";
 $requestservice = new RequestService($requestmodel);
 
 
